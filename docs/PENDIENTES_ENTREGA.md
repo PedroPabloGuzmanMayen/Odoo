@@ -23,9 +23,10 @@ en la [Guía de validación](GUIA_VALIDACION.md).
 | --- | --- |
 | Implementación en Odoo (numerales 1 a 9) | Completa y verificada |
 | Moneda de las compras | Corregida: compras y facturas de proveedor en GTQ |
-| Imágenes de productos | Cargadas en los 11 productos |
+| Imágenes de productos | Cargadas en los 14 productos |
+| Realismo del caso | Recetas, empaques, mano de obra y fechas repartidas en dos semanas |
 | Documentación técnica y de validación | Completa |
-| Capturas de pantalla | Rehechas: montos en Q, productos con imagen y sin el puntero de los recorridos guiados |
+| Capturas y PDF de ejemplo | Rehechos sobre la versión final |
 | Presentación y PDF | No iniciados |
 | Relación con TOGAF | Por incluir en la presentación |
 
@@ -94,13 +95,11 @@ Con 10 minutos no alcanza para recorrer todo en vivo. Propuesta de reparto del t
 
 ### 4. Preparar respuestas a preguntas probables
 
-| Pregunta | Respuesta |
-| --- | --- |
-| ¿Por qué tres ubicaciones y no tres almacenes? | En Odoo, "almacén" es la bodega física. Materias primas, productos en proceso y productos terminados son ubicaciones dentro de la planta; así se mueven los materiales a producción y el producto terminado a venta |
-| ¿Por qué un módulo propio? | Odoo Community no incluye Helpdesk ni el estado de resultados; ambos son de la edición Enterprise |
-| ¿Cómo se calcula el estado de resultados? | Suma los apuntes contables publicados del período, agrupados por tipo de cuenta del plan guatemalteco |
-| ¿Cómo se integran los módulos? | Cada operación genera su asiento contable automático: recepción, producción, entrega, factura y pago (sección 10 de la guía técnica) |
-| ¿De dónde salen las imágenes de los productos? | De Wikimedia Commons, con licencias libres; los créditos están en `addons/dulces_delicias/static/img/CREDITOS.md` |
+Las preguntas y respuestas están en [Preguntas y respuestas](PREGUNTAS_Y_RESPUESTAS.md): valor,
+TOGAF, ITIL aplicado al caso, métricas con su unidad y su decisión, y las preguntas sobre el
+realismo del caso.
+
+- [ ] Cada integrante estudia las de su bloque.
 
 ## Ya resuelto
 
@@ -110,7 +109,10 @@ Con 10 minutos no alcanza para recorrer todo en vivo. Propuesta de reparto del t
   haya creado solicitudes de compra provisionales.
 - Las compras y las facturas de proveedor salen en quetzales. Antes salían en USD porque los
   precios de proveedor se cargaban cuando la empresa aún tenía la moneda por defecto de Odoo.
-- Los 11 productos (8 materias primas y 3 productos terminados) tienen imagen.
+- Los 14 productos (11 materias primas y 3 productos terminados) tienen imagen.
 - Los recorridos guiados de Odoo están desactivados; su puntero morado ya no tapa campos.
-- Las 22 capturas de `docs/capturas/` están rehechas sobre la versión corregida.
+- Las 22 capturas de `docs/capturas/` y los PDF de `docs/ejemplos/` están rehechos sobre la versión final.
+- El caso es más realista: recetas que cuadran con el peso del producto, empaques como materia
+  prima, mano de obra en el costo de cada lote y operación repartida en dos semanas. El margen
+  bruto pasó de 77 % a 68 % y el neto de 25 % a 15 %.
 - Los 4 reportes se generan en pantalla y en PDF.

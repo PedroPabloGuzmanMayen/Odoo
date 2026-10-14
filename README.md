@@ -7,7 +7,7 @@ Incluye un módulo propio, `dulces_delicias`, que deja configurados todos los nu
 
 | # | Numeral del caso | Qué deja listo el módulo |
 |---|------------------|--------------------------|
-| 1 | Productos y materias primas | 3 productos terminados, 8 materias primas con unidades de medida (kg, L, unidades), listas de materiales y stock mínimo/máximo |
+| 1 | Productos y materias primas | 3 productos terminados, 11 materias primas (8 ingredientes y 3 empaques) con unidades de medida (kg, L, unidades), listas de materiales con mano de obra y stock mínimo/máximo |
 | 2 | Inventarios | Almacenes de **Materias Primas**, **Productos en Proceso** y **Productos Terminados**, inventario inicial y orden de compra por bajo stock |
 | 3 | Producción | Centros de trabajo, operaciones con tiempos, órdenes de fabricación por lote con órdenes de trabajo |
 | 4 | Clientes (CRM) | 3 clientes con perfil (tipo, contacto, preferencias, historial), oportunidades en etapas Prospecto / Negociación / Cierre con actividades |
@@ -44,6 +44,7 @@ La simulación también puede ejecutarse desde la interfaz: **Dulces Delicias �
 - **[Guía técnica de configuración y uso](docs/GUIA_TECNICA.md)**: paso a paso de cada numeral, con menús, datos y capturas.
 - **[Guía de validación](docs/GUIA_VALIDACION.md)**: lista de comprobación, pantalla por pantalla, de cada numeral del enunciado con las cifras esperadas.
 - **[TODO del equipo](docs/TODO.md)**: lo que ya se hizo y lo que falta.
+- **[Preguntas y respuestas](docs/PREGUNTAS_Y_RESPUESTAS.md)**: preparación para la defensa con ITIL, TOGAF, métricas y realismo del caso.
 - **[Pendientes para la entrega](docs/PENDIENTES_ENTREGA.md)**: lo que falta para entregar y lo que se dijo en clase sobre el caso.
 - `docs/capturas/`: capturas de pantalla de cada proceso (útiles para la presentación).
 - `docs/ejemplos/`: PDF de ejemplo de los cuatro reportes.

@@ -19,7 +19,7 @@ Odoo es obligatoria; las capturas son solo respaldo.
 - [x] Entorno con Docker: Odoo 17 Community, PostgreSQL 15 y scripts para instalar, simular y
   reiniciar
 - [x] Localización de Guatemala: GTQ, IVA 12 %, plan contable guatemalteco, español y zona horaria
-- [x] Numeral 1, productos: 3 productos terminados, 8 materias primas con unidades de medida,
+- [x] Numeral 1, productos: 3 productos terminados, 11 materias primas (8 ingredientes y 3 empaques) con unidades de medida,
   recetas y stock mínimo y máximo
 - [x] Numeral 2, inventarios: ubicaciones de materias primas, productos en proceso y productos
   terminados; inventario inicial; compra por bajo stock
@@ -42,11 +42,17 @@ Odoo es obligatoria; las capturas son solo respaldo.
 - [x] [Guía de validación](GUIA_VALIDACION.md) pantalla por pantalla (14/10)
 - [x] Revisión de lo dicho en clase sobre el caso y sobre TOGAF (14/10)
 - [x] Moneda de las compras corregida: compras y facturas de proveedor en GTQ (14/10)
-- [x] Imágenes en los 11 productos, de Wikimedia Commons con licencia libre (14/10)
+- [x] Imágenes en los 14 productos: fotos de Wikimedia Commons con licencia libre e ilustraciones
+  propias de los empaques (14/10)
+- [x] Realismo del caso (14/10):
+  - Recetas que cuadran con el peso del producto y leche en polvo en lugar de líquida.
+  - Empaques como materia prima, con su proveedor y su regla de mínimo y máximo.
+  - Costo por hora en los centros de trabajo y asiento de planilla de producción.
+  - Operación repartida en las dos semanas anteriores a la simulación, no en un mismo segundo.
 - [x] Reinstalación con la simulación completa sobre la versión corregida (14/10)
 - [x] Recorridos guiados de Odoo desactivados: su puntero morado tapaba campos en la demostración
   y en las capturas (14/10)
-- [x] Las 22 capturas rehechas sobre la instalación nueva: montos en Q y productos con imagen (14/10)
+- [x] Las 22 capturas y los 4 PDF de ejemplo rehechos sobre la versión final (14/10)
 
 ## Presentación
 
@@ -58,8 +64,9 @@ Odoo es obligatoria; las capturas son solo respaldo.
   [Pendiente 2](PENDIENTES_ENTREGA.md#2-integrar-togaf)
 - [ ] Armar pocas diapositivas de apoyo: portada, TOGAF, una por bloque, conclusiones y
   bibliografía. Base: sección 11 de la [Guía técnica](GUIA_TECNICA.md).
-- [ ] Preparar respuestas a preguntas probables.
-  [Pendiente 4](PENDIENTES_ENTREGA.md#4-preparar-respuestas-a-preguntas-probables)
+- [x] Documento de [preguntas y respuestas](PREGUNTAS_Y_RESPUESTAS.md) con ITIL, TOGAF, métricas y
+  realismo del caso (14/10)
+- [ ] Cada integrante estudia las preguntas y respuestas de su bloque.
 - [ ] Ensayo con cronómetro: 10 minutos como máximo, con demostración en vivo.
 - [ ] Exportar las diapositivas a PDF y revisar que las capturas se lean bien.
 

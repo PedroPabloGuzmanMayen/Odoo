@@ -16,10 +16,14 @@ cómo se configuró cada punto está en la [Guía técnica](GUIA_TECNICA.md).
 3. Abra el asistente siempre desde el menú. Si se abre pegando su dirección en la barra del
    navegador, al cerrarlo no queda una pantalla debajo y Odoo lo vuelve a mostrar.
 
-Los números de documento (P00007, S00001, etc.) pueden variar entre instalaciones. Por ejemplo,
+Los números de documento (P00001, S00001, etc.) pueden variar entre instalaciones. Por ejemplo,
 si el servidor arrancó antes de la simulación, el planificador crea solicitudes de compra
 provisionales que la simulación descarta, y la numeración de compras empieza más adelante. Los
 importes, cantidades y estados deben coincidir exactamente con esta guía.
+
+Las fechas se reparten en las dos semanas anteriores al día de la simulación: el inventario
+inicial queda 13 días antes, la fabricación entre 9 y 7 días antes, los pedidos 6 y 5 días antes y
+el reclamo 2 días antes. El detalle está en la sección 0.4 de la [Guía técnica](GUIA_TECNICA.md).
 
 Para volver a empezar: `./scripts/reiniciar.sh` y luego `./scripts/instalar.sh`.
 
@@ -28,22 +32,25 @@ Para volver a empezar: `./scripts/reiniciar.sh` y luego `./scripts/instalar.sh`.
 Requisito: tres productos, las materias primas de cada uno, sus unidades de medida y el stock
 mínimo y máximo.
 
-- [ ] **Inventario > Productos > Productos**: hay 3 productos terminados (código `PT-`) y 8
-  materias primas (código `MP-`). En la vista de tarjetas cada producto muestra su imagen.
-- [ ] Abra **Cacao en polvo**: la unidad de medida es kg. La leche, el colorante y el saborizante
-  están en L, y los huevos en unidades.
+- [ ] **Inventario > Productos > Productos**: hay 3 productos terminados (código `PT-`) y 11
+  materias primas (código `MP-`): 8 ingredientes y 3 empaques. En la vista de tarjetas cada
+  producto muestra su imagen.
+- [ ] Abra **Cacao en polvo**: la unidad de medida es kg, igual que la leche en polvo, el azúcar,
+  la harina y la mantequilla. El colorante y el saborizante están en L; los huevos y los empaques,
+  en unidades.
 - [ ] **Manufactura > Productos > Listas de materiales**: hay 3 recetas.
 
 | Producto | Componentes |
 | ---------- | ------------- |
-| Caramelos surtidos de frutas | Azúcar, colorante, saborizante |
-| Chocolates de leche | Cacao, leche, azúcar |
-| Galletas de mantequilla | Harina, azúcar, mantequilla, huevos |
+| Caramelos surtidos de frutas | Azúcar, colorante, saborizante y bolsa de celofán |
+| Chocolates de leche | Cacao, leche en polvo, azúcar y caja de cartón |
+| Galletas de mantequilla | Harina, azúcar, mantequilla, huevos y bolsa kraft |
 
 - [ ] Abra una receta y revise la pestaña **Operaciones**: tiene 3 operaciones con centro de
-  trabajo y tiempo estándar.
-- [ ] **Dulces Delicias > Reportes > Reabastecimiento (mín./máx.)**: las 8 materias primas
-  tienen mínimo y máximo (por ejemplo, cacao: 30 kg y 150 kg).
+  trabajo y tiempo estándar. Cada centro de trabajo tiene un costo por hora (mano de obra y
+  máquina), en **Manufactura > Configuración > Centros de trabajo**.
+- [ ] **Dulces Delicias > Reportes > Reabastecimiento (mín./máx.)**: las 11 materias primas
+  tienen mínimo y máximo (por ejemplo, cacao: 10 kg y 40 kg).
 
 ## 2. Gestión de inventarios
 
@@ -55,19 +62,19 @@ terminados, y una orden de compra por bajo stock.
   devoluciones. *Productos en Proceso* queda vacía al terminar la producción. Se ve en el
   numeral 3.
 - [ ] **Inventario > Reportes > Historial de movimientos**: filtre por "Inventario inicial" para
-  ver la carga de las 8 materias primas. El cacao (20 kg) y la leche (25 L) quedan por debajo del
-  mínimo a propósito.
+  ver la carga de las 11 materias primas. El cacao (6 kg) y la leche en polvo (5 kg) quedan por
+  debajo del mínimo a propósito.
 - [ ] **Compras > Órdenes > Órdenes de compra**: hay 2 compras confirmadas, recibidas, facturadas
   y pagadas.
 
 | Proveedor | Producto | Cantidad | Total |
 | ----------- | ---------- | ---------- | ------- |
-| Cacao Maya Verapaz | Cacao en polvo | 130 kg (150 - 20) | Q5,850.00 |
-| Lácteos San Isidro | Leche entera | 125 L (150 - 25) | Q1,250.00 |
+| Cacao Maya Verapaz | Cacao en polvo | 34 kg (40 - 6) | Q1,530.00 |
+| Lácteos San Isidro | Leche en polvo entera | 25 kg (30 - 5) | Q1,000.00 |
 
 - [ ] **Compras > Órdenes > Solicitudes de cotización**: hay una solicitud en borrador a
-  **Avícola Los Pinos** por 900 huevos (**Q1,125.00**). Odoo la creó solo, porque la producción
-  dejó los huevos en 100 unidades, por debajo del mínimo de 200.
+  **Avícola Los Pinos** por 330 huevos (**Q412.50**). Odoo la creó solo, porque la orden de
+  galletas dejó los huevos en 30 unidades, por debajo del mínimo de 60.
 
 ## 3. Planificación y ejecución de la producción
 
@@ -83,13 +90,18 @@ cierre del lote e impacto en inventario.
 | DD/MO/00003 | Galletas | 150 | L-GAL-AAAAMMDD |
 
 - [ ] Abra una orden y revise la pestaña **Componentes** (lo consumido) y la pestaña **Órdenes
-  de trabajo** (el tiempo real de cada operación).
+  de trabajo** (el tiempo real de cada operación). Cada lote se fabricó en un día distinto, de
+  7:00 hasta que terminó la última operación.
+- [ ] Costo unitario resultante, con ingredientes, empaque y mano de obra: caramelos Q7.93,
+  chocolates Q11.66 y galletas Q9.51. Se ve en el producto, campo *Costo*.
 - [ ] **Manufactura > Operaciones > Órdenes de trabajo**: hay 9 órdenes terminadas, 3 por
   producto.
 - [ ] En la orden, el botón inteligente de **Traslados** muestra el paso de las materias primas a
   *Productos en Proceso* y del producto terminado a *Productos Terminados*.
-- [ ] Impacto en inventario: en **Existencias por ubicación**, *Materias Primas* quedó con cacao
-  135 kg, leche 140 L, harina 90 kg, mantequilla 35 kg, huevos 100 u. y azúcar 190 kg.
+- [ ] Impacto en inventario: en **Existencias por ubicación**, *Materias Primas* quedó con azúcar
+  137 kg, cacao 34 kg, leche en polvo 26.5 kg, harina 42 kg, mantequilla 14.5 kg y huevos 30 u.
+- [ ] Tablero de **Facturación** (al abrir la app), tarjeta **Operaciones varias**: el asiento
+  "Planilla de operarios de producción" por Q1,585.00 paga la mano de obra aplicada a los lotes.
 
 ## 4. Gestión de clientes (CRM)
 
@@ -151,7 +163,8 @@ entrega.
 - [ ] **Facturación > Configuración > Contabilidad > Diarios**: existen los diarios *Banco -
   Transferencia bancaria*, *Tarjeta de crédito* y *Pago contra entrega*.
 - [ ] **Facturación > Proveedores > Facturas (proveedores)**: hay 4 facturas pagadas: las 2
-  compras, la de energía eléctrica (Q1,680.00) y la de alquiler de planta (Q5,600.00).
+  compras (Q1,530.00 y Q1,000.00), la de energía eléctrica (Q1,680.00) y la de alquiler de planta
+  (Q5,600.00).
 
 ## 7. Gestión de entregas
 
@@ -195,10 +208,10 @@ resultados para un período dado.
 | Concepto | Importe | % de ventas |
 | ---------- | --------- | ------------- |
 | Ingresos por ventas (sin IVA) | Q12,425.22 | 100.0 % |
-| Costo de ventas (incluye merma) | Q2,836.59 | 22.8 % |
-| Utilidad bruta | Q9,588.63 | 77.2 % |
+| Costo de ventas (incluye mano de obra y merma) | Q4,002.60 | 32.2 % |
+| Utilidad bruta | Q8,422.62 | 67.8 % |
 | Gastos de operación | Q6,500.00 | 52.3 % |
-| Utilidad neta del período | Q3,088.63 | 24.9 % |
+| Utilidad neta del período | Q1,922.62 | 15.5 % |
 
 - [ ] Cambie las fechas del período: el reporte se recalcula. Esto cumple el requisito de "para
   un período dado".

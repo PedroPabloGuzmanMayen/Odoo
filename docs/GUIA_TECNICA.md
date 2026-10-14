@@ -40,11 +40,11 @@ cada numeral, tanto de forma **automática** (simulación) como **manual** desde
 financieros (*Estado de resultados*), que son exclusivos de Odoo Enterprise. El módulo
 `dulces_delicias` agrega:
 
-* La app **Postventa** (casos de atención al cliente) — numeral 8.
-* Los **reportes** de inventario, clientes, proveedores y estado de resultados — numeral 9.
-* El **perfil de cliente** (tipo de cliente, preferencias, frecuencia de compra, historial) — numeral 4.
-* Todos los **datos maestros** del caso y la configuración (almacenes, reglas, diarios, etc.).
-* Un **asistente de simulación** que ejecuta todas las transacciones del caso.
+- La app **Postventa** (casos de atención al cliente) — numeral 8.
+- Los **reportes** de inventario, clientes, proveedores y estado de resultados — numeral 9.
+- El **perfil de cliente** (tipo de cliente, preferencias, frecuencia de compra, historial) — numeral 4.
+- Todos los **datos maestros** del caso y la configuración (almacenes, reglas, diarios, etc.).
+- Un **asistente de simulación** que ejecuta todas las transacciones del caso.
 
 ### 0.2 Instalación
 
@@ -66,12 +66,38 @@ Luego abra <http://localhost:8069> e ingrese con **admin / admin**.
 | Contabilidad | Valoración de inventario perpetua (costo promedio) con contabilidad anglosajona; cuentas de inventario de MP, PEP y PT; diarios de pago |
 | CRM | Etapas renombradas a **Prospecto → Calificado → Negociación → Cierre (ganado)** |
 
-### 0.4 Dos formas de trabajar
+### 0.4 Línea de tiempo de la simulación
 
-* **Automática:** menú **Dulces Delicias → Configuración → Simular caso de estudio**. Se pueden
+La simulación reparte la operación en las dos semanas anteriores al día en que se ejecuta, como en
+una empresa real. Para lograrlo fija el reloj de Odoo en cada paso con la librería `freezegun`, que
+viene en la imagen de Odoo. La columna de ejemplo corresponde a una simulación ejecutada el
+14/10/2026.
+
+| Días antes | Ejemplo | Evento |
+|------------|---------|--------|
+| 13 | 01/10 | Inventario inicial; factura y pago del alquiler de la planta |
+| 12 | 02/10 | Compra de cacao y leche en polvo por bajo stock |
+| 11 | 03/10 | Oportunidad del contrato anual con Supermercado Delicias |
+| 10 | 04/10 | Recepción y factura de las compras |
+| 9, 8, 7 | 05/10 a 07/10 | Fabricación de caramelos, chocolates y galletas; pago de la planilla de producción |
+| 8 | 06/10 | Pago a proveedores; oportunidad de Distribuidora Dulce Sabor |
+| 6 | 08/10 | Pedido de Confitería La Dulzura |
+| 5 | 09/10 | Pedidos de Supermercado Delicias y Distribuidora Dulce Sabor; factura de energía |
+| 4 | 10/10 | Entrega, factura y pago con tarjeta de La Dulzura; pago de energía |
+| 3 | 11/10 | Entrega y factura de Supermercado Delicias; oportunidad navideña de La Dulzura |
+| 2 | 12/10 | Entrega, factura y pago contra entrega de Dulce Sabor; reclamo del supermercado |
+| 1 | 13/10 | Pago parcial del supermercado; devolución, merma y reposición del reclamo |
+| 0 | 14/10 | Consulta de La Dulzura, abierta en el tablero |
+
+Las actividades del CRM y la fecha límite de los casos se calculan desde el día de la simulación,
+para que estén vigentes durante la demostración.
+
+### 0.5 Dos formas de trabajar
+
+- **Automática:** menú **Dulces Delicias → Configuración → Simular caso de estudio**. Se pueden
   marcar sólo los pasos deseados; cada paso se ejecuta una vez.
   ![Simulación](capturas/22_simulacion.png)
-* **Manual:** instale sin `--simular` y siga las secciones "Paso a paso manual" de esta guía.
+- **Manual:** instale sin `--simular` y siga las secciones "Paso a paso manual" de esta guía.
   Recomendado para que cada integrante del grupo practique su numeral.
 
 ---
@@ -93,24 +119,44 @@ ruta *Fabricar*):
 
 | Código | Materia prima | UdM | Costo | Stock mín. | Stock máx. | Proveedor |
 |--------|---------------|-----|-------|-----------|-----------|-----------|
-| MP-AZU | Azúcar refinada | kg | Q 6.00 | 100 | 500 | Azúcares del Sur, S.A. |
-| MP-COL | Colorante alimentario | L | Q 120.00 | 2 | 10 | Aromas y Colores, S.A. |
-| MP-SAB | Saborizante de frutas | L | Q 150.00 | 3 | 15 | Aromas y Colores, S.A. |
-| MP-CAC | Cacao en polvo | kg | Q 45.00 | 30 | 150 | Cacao Maya Verapaz |
-| MP-LEC | Leche entera | L | Q 10.00 | 30 | 150 | Lácteos San Isidro |
-| MP-HAR | Harina de trigo | kg | Q 7.00 | 50 | 250 | Molino Harinero Santa Ana |
-| MP-MAN | Mantequilla sin sal | kg | Q 40.00 | 20 | 100 | Lácteos San Isidro |
-| MP-HUE | Huevos frescos | Unidades | Q 1.25 | 200 | 1000 | Avícola Los Pinos |
+| MP-AZU | Azúcar refinada | kg | Q 6.00 | 100 | 400 | Azúcares del Sur, S.A. |
+| MP-COL | Colorante alimentario | L | Q 120.00 | 1 | 5 | Aromas y Colores, S.A. |
+| MP-SAB | Saborizante de frutas | L | Q 150.00 | 2 | 8 | Aromas y Colores, S.A. |
+| MP-CAC | Cacao en polvo | kg | Q 45.00 | 10 | 40 | Cacao Maya Verapaz |
+| MP-LEC | Leche en polvo entera | kg | Q 40.00 | 8 | 30 | Lácteos San Isidro |
+| MP-HAR | Harina de trigo | kg | Q 7.00 | 25 | 100 | Molino Harinero Santa Ana |
+| MP-MAN | Mantequilla sin sal | kg | Q 40.00 | 10 | 40 | Lácteos San Isidro |
+| MP-HUE | Huevos frescos | Unidades | Q 1.25 | 60 | 360 | Avícola Los Pinos |
+| MP-BCA | Bolsa de celofán impresa 500 g | Unidades | Q 0.90 | 100 | 1000 | Empaques y Etiquetas de Centroamérica, S.A. |
+| MP-CJB | Caja de cartón para 12 bombones | Unidades | Q 3.50 | 50 | 500 | Empaques y Etiquetas de Centroamérica, S.A. |
+| MP-BGA | Bolsa kraft con ventana para 24 galletas | Unidades | Q 1.20 | 100 | 1000 | Empaques y Etiquetas de Centroamérica, S.A. |
+
+Los ingredientes son los que pide el enunciado. Los empaques también son materia prima: sin ellos
+no se puede despachar el producto, y su costo entra al costo de cada lote. La leche es en polvo
+porque el chocolate no admite agua.
 
 **Listas de materiales** (lote estándar de **100 unidades**):
 
 | Producto | Componentes por lote de 100 | Operaciones (centro de trabajo, minutos por ciclo de 100 u.) |
 |----------|-----------------------------|----------------------------------------------------------|
-| Caramelos | Azúcar 45 kg, Colorante 0.5 L, Saborizante 1 L | Cocción del jarabe (Cocina, 45) → Moldeado y enfriado (Cocina, 30) → Empaque (Línea de empaque, 20) |
-| Chocolates | Cacao 15 kg, Leche 10 L, Azúcar 8 kg | Mezcla y templado (Línea de chocolate, 40) → Moldeado (Línea de chocolate, 30) → Empaque (20) |
-| Galletas | Harina 20 kg, Azúcar 8 kg, Mantequilla 10 kg, Huevos 200 u. | Preparación de masa (Mezcladora, 30) → Horneado (Horno industrial, 35) → Empaque (20) |
+| Caramelos (100 bolsas de 500 g = 50 kg) | Azúcar 50 kg, Colorante 0.25 L, Saborizante 0.5 L, 100 bolsas de celofán | Cocción del jarabe (Cocina, 45) → Moldeado y enfriado (Cocina, 30) → Empaque (Línea de empaque, 20) |
+| Chocolates (100 cajas de 12 bombones de 12.5 g = 15 kg) | Cacao 6 kg, Leche en polvo 3.5 kg, Azúcar 5.5 kg, 100 cajas | Mezcla y templado (Línea de chocolate, 40) → Moldeado (Línea de chocolate, 30) → Empaque (20) |
+| Galletas (100 paquetes de 24 galletas de 10 g = 24 kg) | Harina 12 kg, Azúcar 5 kg, Mantequilla 7 kg, Huevos 40 u., 100 bolsas kraft | Preparación de masa (Mezcladora, 30) → Horneado (Horno industrial, 35) → Empaque (20) |
 
-Cada centro de trabajo tiene 10 min de preparación y 10 min de limpieza por orden.
+Las cantidades cuadran con el peso del producto terminado: los ingredientes de cada lote pesan lo
+mismo que el producto, o un poco más en las galletas, que pierden agua al hornearse.
+
+Cada centro de trabajo tiene 10 min de preparación y 10 min de limpieza por orden, y un **costo
+por hora** que representa la mano de obra y el uso de la máquina. Con él, el costo de cada lote
+incluye la mano de obra y no solo los ingredientes:
+
+| Centro de trabajo | Costo por hora |
+|-------------------|----------------|
+| Cocina de caramelos | Q 150 |
+| Línea de chocolate | Q 180 |
+| Mezcladora y amasado | Q 120 |
+| Horno industrial | Q 200 |
+| Línea de empaque | Q 120 |
 
 ### 1.2 Dónde verlo en Odoo
 
@@ -162,14 +208,17 @@ Menú: **Inventario → Configuración → Almacenes** y **→ Ubicaciones**.
 
 | Materia prima | Inventario inicial | ¿Bajo el mínimo? |
 |---------------|-------------------|------------------|
-| Azúcar | 300 kg | No |
-| Colorante | 5 L | No |
-| Saborizante | 8 L | No |
-| **Cacao** | **20 kg** | **Sí (mín. 30)** |
-| **Leche** | **25 L** | **Sí (mín. 30)** |
-| Harina | 120 kg | No |
-| Mantequilla | 50 kg | No |
-| Huevos | 400 u. | No |
+| Azúcar | 250 kg | No |
+| Colorante | 3 L | No |
+| Saborizante | 5 L | No |
+| **Cacao** | **6 kg** | **Sí (mín. 10)** |
+| **Leche en polvo** | **5 kg** | **Sí (mín. 8)** |
+| Harina | 60 kg | No |
+| Mantequilla | 25 kg | No |
+| Huevos | 90 u. | No |
+| Bolsas de celofán | 500 u. | No |
+| Cajas para bombones | 200 u. | No |
+| Bolsas kraft | 400 u. | No |
 
 **Paso a paso manual:** **Inventario → Operaciones → Inventario físico** → *Nuevo* (o *Aplicar*
 sobre las líneas) → producto, ubicación *Materias Primas*, *Cantidad contada* → **Aplicar** →
@@ -184,8 +233,8 @@ pedir para llegar al máximo:
 
 | Proveedor | Producto | Cantidad pedida | Total (IVA incl.) |
 |-----------|----------|-----------------|-------------------|
-| Cacao Maya Verapaz | Cacao en polvo | 130 kg (150 − 20) | Q 5,850.00 |
-| Lácteos San Isidro | Leche entera | 125 L (150 − 25) | Q 1,250.00 |
+| Cacao Maya Verapaz | Cacao en polvo | 34 kg (40 − 6) | Q 1,530.00 |
+| Lácteos San Isidro | Leche en polvo entera | 25 kg (30 − 5) | Q 1,000.00 |
 
 **Paso a paso manual:**
 
@@ -199,8 +248,9 @@ pedir para llegar al máximo:
 
 ![Orden de compra](capturas/07_orden_compra.png)
 
-> Después de producir, los **huevos** bajan a 100 u. (mínimo 200). Como la regla es automática,
-> Odoo genera por sí solo una **solicitud de presupuesto** a Avícola Los Pinos por 900 huevos:
+> Al confirmar la orden de galletas, los **huevos** previstos bajan a 30 u. (mínimo 60). Como la regla
+> es automática, Odoo genera por sí solo una **solicitud de presupuesto** a Avícola Los Pinos por
+> 330 huevos (Q 412.50) para volver al máximo de 360:
 > ![RFQ automática](capturas/08_solicitud_presupuesto_auto.png)
 
 ---
@@ -211,11 +261,22 @@ pedir para llegar al máximo:
 
 | Orden | Producto | Cantidad | Lote | Consumo de materias primas |
 |-------|----------|----------|------|----------------------------|
-| DD/MO/00001 | Caramelos | 200 bolsas | L-CAR-AAAAMMDD | 90 kg azúcar, 1 L colorante, 2 L saborizante |
-| DD/MO/00002 | Chocolates | 100 cajas | L-CHO-AAAAMMDD | 15 kg cacao, 10 L leche, 8 kg azúcar |
-| DD/MO/00003 | Galletas | 150 paquetes | L-GAL-AAAAMMDD | 30 kg harina, 12 kg azúcar, 15 kg mantequilla, 300 huevos |
+| DD/MO/00001 | Caramelos | 200 bolsas | L-CAR-AAAAMMDD | 100 kg azúcar, 0.5 L colorante, 1 L saborizante, 200 bolsas |
+| DD/MO/00002 | Chocolates | 100 cajas | L-CHO-AAAAMMDD | 6 kg cacao, 3.5 kg leche en polvo, 5.5 kg azúcar, 100 cajas |
+| DD/MO/00003 | Galletas | 150 paquetes | L-GAL-AAAAMMDD | 18 kg harina, 7.5 kg azúcar, 10.5 kg mantequilla, 60 huevos, 150 bolsas |
 
-Tiempos de producción (órdenes de trabajo): caramelos 250 min, chocolates 150 min, galletas 230 min.
+Cada lote se fabrica en un turno distinto, de 7:00 hasta que termina la última operación:
+caramelos 250 min, chocolates 150 min y galletas 230 min.
+
+| Lote | Ingredientes y empaque | Mano de obra (centros de trabajo) | Costo unitario |
+|------|------------------------|-----------------------------------|----------------|
+| Caramelos (200) | Q 990.00 | Q 595.00 | Q 7.93 |
+| Chocolates (100) | Q 755.92 | Q 410.00 | Q 11.66 |
+| Galletas (150) | Q 846.00 | Q 580.00 | Q 9.51 |
+
+La mano de obra se carga a la cuenta de **productos en proceso** al terminar cada lote. El asiento
+"Planilla de operarios de producción" (Q 1,585.00) registra el pago de esa planilla y deja la cuenta
+en cero.
 
 ### 3.2 Paso a paso manual
 
@@ -250,10 +311,10 @@ Tiempos de producción (órdenes de trabajo): caramelos 250 min, chocolates 150 
 
 En la ficha del cliente (**CRM → Ventas → Clientes** o **Contactos**) están las pestañas:
 
-* **Perfil Dulces Delicias**: tipo de cliente, frecuencia de compra, total comprado, productos
+- **Perfil Dulces Delicias**: tipo de cliente, frecuencia de compra, total comprado, productos
   preferidos y preferencias.
-* **Historial de compras**: todos los pedidos del cliente con su estado de facturación y entrega.
-* Botones inteligentes: Oportunidades, Ventas, Facturado, Casos postventa.
+- **Historial de compras**: todos los pedidos del cliente con su estado de facturación y entrega.
+- Botones inteligentes: Oportunidades, Ventas, Facturado, Casos postventa.
 
 ![Perfil del cliente](capturas/12_cliente_perfil.png)
 
@@ -366,17 +427,17 @@ automáticamente el **lote** fabricado.
 
 Menú **Dulces Delicias → Postventa → Casos postventa** (también en **Ventas → Postventa**).
 
-* Etapas: **Nuevo → En análisis → En resolución → Resuelto → Cerrado**
+- Etapas: **Nuevo → En análisis → En resolución → Resuelto → Cerrado**
   (configurables en *Dulces Delicias → Configuración → Etapas postventa*).
-* Cada caso se vincula a **cliente, pedido, entrega, factura, producto y lote**.
-* Tipos: producto dañado, producto incorrecto, faltante, retraso, error de facturación, consulta.
-* Seguimiento con chatter, actividades y fecha límite de respuesta.
-* Botones de resolución:
-  * **Registrar devolución** → crea la devolución hacia *Producto No Conforme*.
-  * **Desechar producto dañado** → registra la merma (va a la cuenta *Mermas y producto dañado*).
-  * **Enviar reposición** → crea una entrega sin costo del producto.
-  * **Crear nota de crédito** → cuando la solución es nota de crédito o reembolso.
-  * **Marcar como resuelto** / **Cerrar caso**, con encuesta de satisfacción.
+- Cada caso se vincula a **cliente, pedido, entrega, factura, producto y lote**.
+- Tipos: producto dañado, producto incorrecto, faltante, retraso, error de facturación, consulta.
+- Seguimiento con chatter, actividades y fecha límite de respuesta.
+- Botones de resolución:
+  - **Registrar devolución** → crea la devolución hacia *Producto No Conforme*.
+  - **Desechar producto dañado** → registra la merma (va a la cuenta *Mermas y producto dañado*).
+  - **Enviar reposición** → crea una entrega sin costo del producto.
+  - **Crear nota de crédito** → cuando la solución es nota de crédito o reembolso.
+  - **Marcar como resuelto** / **Cerrar caso**, con encuesta de satisfacción.
 
 ![Kanban postventa](capturas/16_postventa_kanban.png)
 
@@ -427,10 +488,10 @@ y **Descargar PDF**.
 | Concepto | Importe | % |
 |----------|---------|---|
 | Ingresos por ventas (sin IVA) | Q 12,425.22 | 100.0 % |
-| Costo de ventas (costo promedio de lo vendido + merma) | Q 2,836.59 | 22.8 % |
-| **Utilidad bruta** | **Q 9,588.63** | **77.2 %** |
+| Costo de ventas (ingredientes, empaque y mano de obra de lo vendido, más la merma) | Q 4,002.60 | 32.2 % |
+| **Utilidad bruta** | **Q 8,422.62** | **67.8 %** |
 | Gastos de operación (alquiler de planta y energía eléctrica, sin IVA) | Q 6,500.00 | 52.3 % |
-| **Utilidad neta del período (antes de ISR)** | **Q 3,088.63** | **24.9 %** |
+| **Utilidad neta del período (antes de ISR)** | **Q 1,922.62** | **15.5 %** |
 
 ![Estado de resultados](capturas/19_estado_resultados.png)
 
@@ -459,7 +520,8 @@ Compras ──► Recepción ──► Materias Primas ──► Productos en Pr
 | Inventario inicial | Inventario MP / Saldo inicial de inventarios (patrimonio) |
 | Recepción de compra | Inventario MP / Mercadería recibida pendiente de facturar |
 | Factura de proveedor | Mercadería recibida + IVA por cobrar / Proveedores |
-| Consumo y producción | Inventario PEP ↔ Inventario MP; Inventario PT / Inventario PEP |
+| Consumo y producción | Inventario PEP / Inventario MP (ingredientes y empaque); Inventario PT / Inventario PEP (incluye la mano de obra) |
+| Planilla de producción | Inventario PEP / Banco (paga la mano de obra aplicada a los lotes) |
 | Entrega al cliente | Mercadería entregada pendiente de facturar / Inventario PT |
 | Factura de cliente | Clientes / Ventas + IVA por pagar; Costo de ventas / Mercadería entregada |
 | Pago | Banco, Tarjeta o Caja / Clientes |
