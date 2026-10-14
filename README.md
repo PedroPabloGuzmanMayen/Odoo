@@ -41,9 +41,12 @@ La simulación también puede ejecutarse desde la interfaz: **Dulces Delicias �
 
 ## Documentación
 
-* **[Guía técnica de configuración y uso](docs/GUIA_TECNICA.md)**: paso a paso de cada numeral, con menús, datos y capturas.
-* `docs/capturas/`: capturas de pantalla de cada proceso (útiles para la presentación).
-* `docs/ejemplos/`: PDF de ejemplo de los cuatro reportes.
+- **[Guía técnica de configuración y uso](docs/GUIA_TECNICA.md)**: paso a paso de cada numeral, con menús, datos y capturas.
+- **[Guía de validación](docs/GUIA_VALIDACION.md)**: lista de comprobación, pantalla por pantalla, de cada numeral del enunciado con las cifras esperadas.
+- **[TODO del equipo](docs/TODO.md)**: lo que ya se hizo y lo que falta.
+- **[Pendientes para la entrega](docs/PENDIENTES_ENTREGA.md)**: lo que falta para entregar y lo que se dijo en clase sobre el caso.
+- `docs/capturas/`: capturas de pantalla de cada proceso (útiles para la presentación).
+- `docs/ejemplos/`: PDF de ejemplo de los cuatro reportes.
 
 ## Estructura
 
