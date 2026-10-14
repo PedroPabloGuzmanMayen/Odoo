@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="prod_envio_propio" model="product.product">
+        <field name="name">Envío - Reparto propio</field>
+        <field name="default_code">ENV-PRO</field>
+        <field name="detailed_type">service</field>
+        <field name="categ_id" ref="categ_logistica"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="list_price">50.0</field>
+    </record>
+    <record id="prod_envio_departamentos" model="product.product">
+        <field name="name">Envío - Transporte a departamentos</field>
+        <field name="default_code">ENV-DEP</field>
+        <field name="detailed_type">service</field>
+        <field name="categ_id" ref="categ_logistica"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="list_price">150.0</field>
+    </record>
+    <record id="prod_recoger_planta" model="product.product">
+        <field name="name">Recoger en planta</field>
+        <field name="default_code">ENV-REC</field>
+        <field name="detailed_type">service</field>
+        <field name="categ_id" ref="categ_logistica"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="list_price">0.0</field>
+    </record>
+
+    <record id="carrier_reparto_propio" model="delivery.carrier">
+        <field name="name">Reparto propio (ciudad capital)</field>
+        <field name="product_id" ref="prod_envio_propio"/>
+        <field name="delivery_type">fixed</field>
+        <field name="fixed_price">50.0</field>
+        <field name="free_over" eval="True"/>
+        <field name="amount">1500</field>
+    </record>
+    <record id="carrier_departamentos" model="delivery.carrier">
+        <field name="name">Transporte tercerizado a departamentos</field>
+        <field name="product_id" ref="prod_envio_departamentos"/>
+        <field name="delivery_type">fixed</field>
+        <field name="fixed_price">150.0</field>
+    </record>
+    <record id="carrier_recoger" model="delivery.carrier">
+        <field name="name">Recoger en planta</field>
+        <field name="product_id" ref="prod_recoger_planta"/>
+        <field name="delivery_type">fixed</field>
+        <field name="fixed_price">0.0</field>
+    </record>
+</odoo>

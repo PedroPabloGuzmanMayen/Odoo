@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_estado_resultados">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="d" t-value="datos[doc.id]"/>
+                <t t-set="moneda" t-value="doc.company_id.currency_id"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center mb-0">Estado de Resultados</h2>
+                        <h5 class="text-center mb-0"><t t-esc="doc.company_id.name"/></h5>
+                        <p class="text-center text-muted">
+                            Del <span t-field="doc.date_from"/> al <span t-field="doc.date_to"/>
+                            (cifras en <t t-esc="moneda.name"/>)
+                            <t t-if="doc.incluir_borradores"> - incluye asientos en borrador</t>
+                        </p>
+
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th class="text-end">Importe</th>
+                                    <th class="text-end">% de ventas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="filas" t-value="[
+                                    ('ventas', None, None, None),
+                                    ('costo_ventas', 'Utilidad bruta', 'utilidad_bruta', 'margen_bruto'),
+                                    ('gastos_operacion', 'Utilidad de operación', 'utilidad_operacion', 'margen_operacion'),
+                                    ('otros_ingresos', None, None, None),
+                                    ('otros_gastos', 'Utilidad (pérdida) neta del período', 'utilidad_neta', 'margen_neto'),
+                                ]"/>
+                                <t t-foreach="filas" t-as="fila">
+                                    <t t-set="sec" t-value="d['secciones'][fila[0]]"/>
+                                    <tr class="table-light">
+                                        <td><strong t-esc="sec['titulo']"/></td>
+                                        <td class="text-end"><strong t-esc="sec['total']" t-options="{'widget': 'monetary', 'display_currency': moneda}"/></td>
+                                        <td class="text-end"><t t-esc="'%.1f' % sec['pct']"/> %</td>
+                                    </tr>
+                                    <t t-if="doc.detalle_cuentas">
+                                        <tr t-foreach="sec['lineas']" t-as="l">
+                                            <td style="padding-left: 25px;"><t t-esc="l['codigo']"/> <t t-esc="l['nombre']"/></td>
+                                            <td class="text-end"><t t-esc="l['importe']" t-options="{'widget': 'monetary', 'display_currency': moneda}"/></td>
+                                            <td/>
+                                        </tr>
+                                        <tr t-if="not sec['lineas']">
+                                            <td style="padding-left: 25px;" class="text-muted"><em>Sin movimientos</em></td>
+                                            <td/><td/>
+                                        </tr>
+                                    </t>
+                                    <tr t-if="fila[1]" style="border-top: 2px solid #333;">
+                                        <td><strong t-esc="fila[1].upper()"/></td>
+                                        <td class="text-end"><strong t-esc="d[fila[2]]" t-options="{'widget': 'monetary', 'display_currency': moneda}"/></td>
+                                        <td class="text-end"><strong><t t-esc="'%.1f' % d[fila[3]]"/> %</strong></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-4">
+                            <div class="col-4 text-center"><strong>Margen bruto</strong><br/><t t-esc="'%.1f' % d['margen_bruto']"/> %</div>
+                            <div class="col-4 text-center"><strong>Margen de operación</strong><br/><t t-esc="'%.1f' % d['margen_operacion']"/> %</div>
+                            <div class="col-4 text-center"><strong>Margen neto</strong><br/><t t-esc="'%.1f' % d['margen_neto']"/> %</div>
+                        </div>
+                        <p class="text-muted small mt-4">
+                            Fuente: apuntes contables publicados del módulo de Contabilidad/Facturación, clasificados según el
+                            tipo de cuenta del plan de cuentas. Utilidad antes del Impuesto Sobre la Renta (ISR).
+                        </p>
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">______________________<br/>Contador</div>
+                            <div class="col-6 text-center">______________________<br/>Representante legal</div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

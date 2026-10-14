@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_dd_root" name="Dulces Delicias" sequence="5"
+              web_icon="dulces_delicias,static/description/icon.png"/>
+
+    <!-- Atención postventa -->
+    <menuitem id="menu_dd_postventa" name="Postventa" parent="menu_dd_root" sequence="10"/>
+    <menuitem id="menu_dd_reclamos" name="Casos postventa" parent="menu_dd_postventa"
+              action="action_dd_reclamo" sequence="10"/>
+    <menuitem id="menu_dd_clientes_postventa" name="Clientes" parent="menu_dd_postventa"
+              action="action_dd_clientes" sequence="20"/>
+
+    <!-- Reportes -->
+    <menuitem id="menu_dd_reportes" name="Reportes" parent="menu_dd_root" sequence="20"/>
+    <menuitem id="menu_dd_estado_resultados" name="Estado de resultados" parent="menu_dd_reportes"
+              action="action_dd_estado_resultados" sequence="10"/>
+    <menuitem id="menu_dd_estado_inventario" name="Estado del inventario (PDF)" parent="menu_dd_reportes"
+              action="action_dd_estado_inventario" sequence="20"/>
+    <menuitem id="menu_dd_existencias" name="Existencias por ubicación" parent="menu_dd_reportes"
+              action="stock.dashboard_open_quants" sequence="25"/>
+    <menuitem id="menu_dd_reabastecimiento" name="Reabastecimiento (mín./máx.)" parent="menu_dd_reportes"
+              action="stock.action_orderpoint" sequence="27"/>
+    <menuitem id="menu_dd_lista_clientes" name="Listado de clientes" parent="menu_dd_reportes"
+              action="action_dd_clientes" sequence="30"/>
+    <menuitem id="menu_dd_lista_proveedores" name="Listado de proveedores" parent="menu_dd_reportes"
+              action="action_dd_proveedores" sequence="40"/>
+    <menuitem id="menu_dd_todos_reportes" name="Imprimir reportes (PDF)" parent="menu_dd_reportes"
+              action="action_dd_reporte_wizard" sequence="90"/>
+
+    <!-- Configuración -->
+    <menuitem id="menu_dd_config" name="Configuración" parent="menu_dd_root" sequence="90"
+              groups="base.group_system"/>
+    <menuitem id="menu_dd_etapas" name="Etapas postventa" parent="menu_dd_config"
+              action="action_dd_reclamo_etapa" sequence="10"/>
+    <menuitem id="menu_dd_simulacion" name="Simular caso de estudio" parent="menu_dd_config"
+              action="action_dd_simulacion_wizard" sequence="20"/>
+
+    <!-- Accesos desde Ventas -->
+    <menuitem id="menu_sale_dd_postventa" name="Postventa" parent="sale.sale_menu_root"
+              action="action_dd_reclamo" sequence="4"/>
+</odoo>

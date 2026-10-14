@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_dd_horizontal" model="report.paperformat">
+        <field name="name">Carta horizontal (Dulces Delicias)</field>
+        <field name="format">Letter</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_spacing">25</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_estado_resultados" model="ir.actions.report">
+        <field name="name">Estado de resultados</field>
+        <field name="model">dd.reporte.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dulces_delicias.report_estado_resultados</field>
+        <field name="report_file">dulces_delicias.report_estado_resultados</field>
+        <field name="print_report_name">'Estado de resultados %s - %s' % (object.date_from, object.date_to)</field>
+    </record>
+    <record id="action_report_inventario" model="ir.actions.report">
+        <field name="name">Estado del inventario</field>
+        <field name="model">dd.reporte.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dulces_delicias.report_inventario</field>
+        <field name="report_file">dulces_delicias.report_inventario</field>
+        <field name="paperformat_id" ref="paperformat_dd_horizontal"/>
+        <field name="print_report_name">'Estado del inventario'</field>
+    </record>
+    <record id="action_report_clientes" model="ir.actions.report">
+        <field name="name">Listado de clientes</field>
+        <field name="model">dd.reporte.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dulces_delicias.report_clientes</field>
+        <field name="report_file">dulces_delicias.report_clientes</field>
+        <field name="paperformat_id" ref="paperformat_dd_horizontal"/>
+        <field name="print_report_name">'Listado de clientes'</field>
+    </record>
+    <record id="action_report_proveedores" model="ir.actions.report">
+        <field name="name">Listado de proveedores</field>
+        <field name="model">dd.reporte.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dulces_delicias.report_proveedores</field>
+        <field name="report_file">dulces_delicias.report_proveedores</field>
+        <field name="paperformat_id" ref="paperformat_dd_horizontal"/>
+        <field name="print_report_name">'Listado de proveedores'</field>
+    </record>
+</odoo>

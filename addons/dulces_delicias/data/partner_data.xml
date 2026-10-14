@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Etiquetas de contacto -->
+    <record id="tag_cliente_confiteria" model="res.partner.category">
+        <field name="name">Cliente - Confitería</field>
+        <field name="color">1</field>
+    </record>
+    <record id="tag_cliente_supermercado" model="res.partner.category">
+        <field name="name">Cliente - Supermercado</field>
+        <field name="color">2</field>
+    </record>
+    <record id="tag_cliente_distribuidor" model="res.partner.category">
+        <field name="name">Cliente - Distribuidor</field>
+        <field name="color">3</field>
+    </record>
+    <record id="tag_proveedor_mp" model="res.partner.category">
+        <field name="name">Proveedor - Materia prima</field>
+        <field name="color">4</field>
+    </record>
+    <record id="tag_proveedor_servicios" model="res.partner.category">
+        <field name="name">Proveedor - Servicios</field>
+        <field name="color">5</field>
+    </record>
+
+    <!-- ===================== CLIENTES ===================== -->
+    <record id="cliente_la_dulzura" model="res.partner">
+        <field name="name">Confitería La Dulzura</field>
+        <field name="is_company" eval="True"/>
+        <field name="customer_rank">1</field>
+        <field name="dd_tipo_cliente">confiteria</field>
+        <field name="dd_frecuencia_compra">semanal</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_cliente_confiteria')])]"/>
+        <field name="street">5a. Avenida Norte #12</field>
+        <field name="city">Antigua Guatemala</field>
+        <field name="state_id" ref="base.state_gt_sac"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="zip">03001</field>
+        <field name="phone">+502 7832 1122</field>
+        <field name="mobile">+502 5512 3344</field>
+        <field name="email">compras@ladulzura.com.gt</field>
+        <field name="vat">4567891-2</field>
+        <field name="property_payment_term_id" ref="account.account_payment_term_immediate"/>
+        <field name="dd_preferencias">Prefiere caramelos de frutas y galletas de mantequilla en presentaciones pequeñas. Recibe mercadería los lunes de 8:00 a 11:00. Paga con tarjeta de crédito al momento de la compra.</field>
+        <field name="comment">Cliente minorista con dos puntos de venta en Antigua Guatemala.</field>
+    </record>
+    <record id="contacto_la_dulzura" model="res.partner">
+        <field name="name">María Fernanda López</field>
+        <field name="parent_id" ref="cliente_la_dulzura"/>
+        <field name="type">contact</field>
+        <field name="function">Propietaria</field>
+        <field name="phone">+502 7832 1122</field>
+        <field name="email">mflopez@ladulzura.com.gt</field>
+    </record>
+
+    <record id="cliente_supermercado_delicias" model="res.partner">
+        <field name="name">Supermercado Delicias</field>
+        <field name="is_company" eval="True"/>
+        <field name="customer_rank">1</field>
+        <field name="dd_tipo_cliente">supermercado</field>
+        <field name="dd_frecuencia_compra">quincenal</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_cliente_supermercado')])]"/>
+        <field name="street">Boulevard Los Próceres 18-50, zona 10</field>
+        <field name="city">Guatemala</field>
+        <field name="state_id" ref="base.state_gt_gua"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="zip">01010</field>
+        <field name="phone">+502 2385 9000</field>
+        <field name="email">proveedores@superdelicias.com.gt</field>
+        <field name="website">https://www.superdelicias.com.gt</field>
+        <field name="vat">7894561-0</field>
+        <field name="property_payment_term_id" ref="account.account_payment_term_30days"/>
+        <field name="dd_preferencias">Compra principalmente chocolates y galletas para góndola. Exige factura electrónica, entrega en su centro de distribución con cita previa y producto con vida útil mínima de 60 días.</field>
+        <field name="comment">Cadena de 8 supermercados en la ciudad capital.</field>
+    </record>
+    <record id="contacto_supermercado_delicias" model="res.partner">
+        <field name="name">Jorge Alberto Méndez</field>
+        <field name="parent_id" ref="cliente_supermercado_delicias"/>
+        <field name="type">contact</field>
+        <field name="function">Jefe de compras</field>
+        <field name="phone">+502 2385 9012</field>
+        <field name="email">jmendez@superdelicias.com.gt</field>
+    </record>
+    <record id="entrega_supermercado_delicias" model="res.partner">
+        <field name="name">Centro de distribución</field>
+        <field name="parent_id" ref="cliente_supermercado_delicias"/>
+        <field name="type">delivery</field>
+        <field name="street">Km 17.5 Carretera al Pacífico, Bodega 7</field>
+        <field name="city">Villa Nueva</field>
+        <field name="state_id" ref="base.state_gt_gua"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 6630 4400</field>
+    </record>
+
+    <record id="cliente_dulce_sabor" model="res.partner">
+        <field name="name">Distribuidora Dulce Sabor</field>
+        <field name="is_company" eval="True"/>
+        <field name="customer_rank">1</field>
+        <field name="dd_tipo_cliente">distribuidor</field>
+        <field name="dd_frecuencia_compra">mensual</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_cliente_distribuidor')])]"/>
+        <field name="street">14 Avenida 3-25, zona 3</field>
+        <field name="city">Quetzaltenango</field>
+        <field name="state_id" ref="base.state_gt_que"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="zip">09001</field>
+        <field name="phone">+502 7761 2030</field>
+        <field name="email">ventas@dulcesabor.com.gt</field>
+        <field name="vat">3216549-7</field>
+        <field name="property_payment_term_id" ref="account.account_payment_term_15days"/>
+        <field name="dd_preferencias">Distribuye en tiendas de barrio del occidente del país. Compra los tres productos por volumen, solicita descuentos por cantidad y paga en efectivo contra entrega.</field>
+        <field name="comment">Distribuidor mayorista para la región occidental.</field>
+    </record>
+    <record id="contacto_dulce_sabor" model="res.partner">
+        <field name="name">Ana Lucía Pérez</field>
+        <field name="parent_id" ref="cliente_dulce_sabor"/>
+        <field name="type">contact</field>
+        <field name="function">Gerente comercial</field>
+        <field name="phone">+502 7761 2031</field>
+        <field name="email">aperez@dulcesabor.com.gt</field>
+    </record>
+
+    <!-- ===================== PROVEEDORES ===================== -->
+    <record id="prov_azucar" model="res.partner">
+        <field name="name">Azúcares del Sur, S.A.</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_mp')])]"/>
+        <field name="city">Escuintla</field>
+        <field name="state_id" ref="base.state_gt_esc"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 7888 1000</field>
+        <field name="email">ventas@azucaresdelsur.com.gt</field>
+        <field name="vat">1112223-4</field>
+        <field name="property_supplier_payment_term_id" ref="account.account_payment_term_30days"/>
+    </record>
+    <record id="prov_cacao" model="res.partner">
+        <field name="name">Cacao Maya Verapaz</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_mp')])]"/>
+        <field name="city">Cobán</field>
+        <field name="state_id" ref="base.state_gt_ave"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 7951 2200</field>
+        <field name="email">pedidos@cacaomaya.com.gt</field>
+        <field name="vat">2223334-5</field>
+        <field name="property_supplier_payment_term_id" ref="account.account_payment_term_15days"/>
+    </record>
+    <record id="prov_lacteos" model="res.partner">
+        <field name="name">Lácteos San Isidro</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_mp')])]"/>
+        <field name="city">Chimaltenango</field>
+        <field name="state_id" ref="base.state_gt_cmt"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 7839 3300</field>
+        <field name="email">ventas@lacteossanisidro.com.gt</field>
+        <field name="vat">3334445-6</field>
+        <field name="property_supplier_payment_term_id" ref="account.account_payment_term_15days"/>
+    </record>
+    <record id="prov_harina" model="res.partner">
+        <field name="name">Molino Harinero Santa Ana</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_mp')])]"/>
+        <field name="city">Guatemala</field>
+        <field name="state_id" ref="base.state_gt_gua"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 2470 4400</field>
+        <field name="email">pedidos@molinosantaana.com.gt</field>
+        <field name="vat">4445556-7</field>
+        <field name="property_supplier_payment_term_id" ref="account.account_payment_term_30days"/>
+    </record>
+    <record id="prov_huevos" model="res.partner">
+        <field name="name">Avícola Los Pinos</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_mp')])]"/>
+        <field name="city">Sacatepéquez</field>
+        <field name="state_id" ref="base.state_gt_sac"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 7830 5500</field>
+        <field name="email">ventas@avicolalospinos.com.gt</field>
+        <field name="vat">5556667-8</field>
+        <field name="property_supplier_payment_term_id" ref="account.account_payment_term_immediate"/>
+    </record>
+    <record id="prov_aromas" model="res.partner">
+        <field name="name">Aromas y Colores, S.A.</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_mp')])]"/>
+        <field name="city">Mixco</field>
+        <field name="state_id" ref="base.state_gt_gua"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 2431 6600</field>
+        <field name="email">info@aromasycolores.com.gt</field>
+        <field name="vat">6667778-9</field>
+        <field name="property_supplier_payment_term_id" ref="account.account_payment_term_30days"/>
+    </record>
+    <record id="prov_energia" model="res.partner">
+        <field name="name">Energía Central, S.A.</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_servicios')])]"/>
+        <field name="city">Guatemala</field>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 2277 7000</field>
+        <field name="vat">7778889-0</field>
+    </record>
+    <record id="prov_inmobiliaria" model="res.partner">
+        <field name="name">Inmobiliaria Zona 11, S.A.</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_servicios')])]"/>
+        <field name="city">Guatemala</field>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 2440 8800</field>
+        <field name="vat">8889990-1</field>
+    </record>
+</odoo>

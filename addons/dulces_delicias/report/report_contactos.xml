@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_clientes">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="moneda" t-value="doc.company_id.currency_id"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">Listado de Clientes</h2>
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th><th>Tipo</th><th>NIT</th><th>Contacto</th><th>Teléfono</th>
+                                    <th>Correo</th><th>Ciudad</th><th>Plazo de pago</th><th>Productos preferidos</th>
+                                    <th class="text-end">Pedidos</th><th class="text-end">Facturado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="datos[doc.id]" t-as="c">
+                                    <td><strong t-esc="c['nombre']"/></td>
+                                    <td t-esc="c['tipo']"/>
+                                    <td t-esc="c['nit']"/>
+                                    <td t-esc="c['contacto']"/>
+                                    <td t-esc="c['telefono']"/>
+                                    <td t-esc="c['email']"/>
+                                    <td t-esc="c['ciudad']"/>
+                                    <td t-esc="c['plazo']"/>
+                                    <td t-esc="c['preferidos']"/>
+                                    <td class="text-end" t-esc="c['pedidos']"/>
+                                    <td class="text-end"><t t-esc="c['facturado']" t-options="{'widget': 'monetary', 'display_currency': moneda}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-muted">Total de clientes: <t t-esc="len(datos[doc.id])"/></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_proveedores">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="moneda" t-value="doc.company_id.currency_id"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">Listado de Proveedores</h2>
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>Proveedor</th><th>NIT</th><th>Teléfono</th><th>Correo</th><th>Ciudad</th>
+                                    <th>Plazo de pago</th><th>Productos que suministra</th>
+                                    <th class="text-end">Órdenes</th><th class="text-end">Comprado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="datos[doc.id]" t-as="p">
+                                    <td><strong t-esc="p['nombre']"/></td>
+                                    <td t-esc="p['nit']"/>
+                                    <td t-esc="p['telefono']"/>
+                                    <td t-esc="p['email']"/>
+                                    <td t-esc="p['ciudad']"/>
+                                    <td t-esc="p['plazo']"/>
+                                    <td t-esc="p['productos']"/>
+                                    <td class="text-end" t-esc="p['ordenes']"/>
+                                    <td class="text-end"><t t-esc="p['comprado']" t-options="{'widget': 'monetary', 'display_currency': moneda}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-muted">Total de proveedores: <t t-esc="len(datos[doc.id])"/></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

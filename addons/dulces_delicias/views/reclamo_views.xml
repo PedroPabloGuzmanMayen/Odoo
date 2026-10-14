@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dd_reclamo_form" model="ir.ui.view">
+        <field name="name">dd.reclamo.form</field>
+        <field name="model">dd.reclamo</field>
+        <field name="arch" type="xml">
+            <form string="Caso postventa">
+                <header>
+                    <button name="action_crear_devolucion" type="object" string="Registrar devolución"
+                            class="btn-secondary" invisible="devolucion_id or es_resuelto"/>
+                    <button name="action_desechar" type="object" string="Desechar producto dañado"
+                            class="btn-secondary" invisible="scrap_id or devolucion_state != 'done'"/>
+                    <button name="action_crear_reposicion" type="object" string="Enviar reposición"
+                            class="btn-secondary" invisible="reposicion_id or es_resuelto or solucion != 'reposicion'"/>
+                    <button name="action_crear_nota_credito" type="object" string="Crear nota de crédito"
+                            class="btn-secondary" invisible="nota_credito_id or es_resuelto or solucion not in ('nota_credito', 'reembolso')"/>
+                    <button name="action_resolver" type="object" string="Marcar como resuelto"
+                            class="btn-primary" invisible="es_resuelto"/>
+                    <button name="action_cerrar" type="object" string="Cerrar caso" invisible="not es_resuelto"/>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                    <field name="es_resuelto" invisible="1"/>
+                    <field name="devolucion_state" invisible="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_ver_devolucion" icon="fa-undo"
+                                invisible="not devolucion_id">
+                            <div class="o_stat_info"><span class="o_stat_text">Devolución</span></div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_ver_reposicion" icon="fa-truck"
+                                invisible="not reposicion_id">
+                            <div class="o_stat_info"><span class="o_stat_text">Reposición</span></div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_ver_nota_credito" icon="fa-file-text-o"
+                                invisible="not nota_credito_id">
+                            <div class="o_stat_info"><span class="o_stat_text">Nota de crédito</span></div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Resuelto" invisible="not es_resuelto"/>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                        <h2><field name="asunto" placeholder="Ej. Chocolates recibidos derretidos"/></h2>
+                    </div>
+                    <group>
+                        <group string="Cliente y pedido">
+                            <field name="partner_id"/>
+                            <field name="sale_order_id"/>
+                            <field name="picking_id"/>
+                            <field name="invoice_id"/>
+                        </group>
+                        <group string="Clasificación">
+                            <field name="tipo"/>
+                            <field name="canal"/>
+                            <field name="prioridad" widget="priority"/>
+                            <field name="fecha"/>
+                            <field name="user_id"/>
+                            <field name="fecha_limite"/>
+                        </group>
+                        <group string="Producto afectado">
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                            <field name="cantidad"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descripción" name="descripcion">
+                            <field name="descripcion" placeholder="Describa lo reportado por el cliente..."/>
+                        </page>
+                        <page string="Resolución" name="resolucion">
+                            <group>
+                                <group>
+                                    <field name="solucion"/>
+                                    <field name="fecha_resolucion"/>
+                                    <field name="satisfaccion"/>
+                                </group>
+                                <group>
+                                    <field name="devolucion_id"/>
+                                    <field name="reposicion_id"/>
+                                    <field name="scrap_id"/>
+                                    <field name="nota_credito_id"/>
+                                </group>
+                            </group>
+                            <field name="causa_raiz" placeholder="Causa raíz identificada..."/>
+                            <field name="resolucion" placeholder="Acciones tomadas para resolver el caso..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dd_reclamo_tree" model="ir.ui.view">
+        <field name="name">dd.reclamo.tree</field>
+        <field name="model">dd.reclamo</field>
+        <field name="arch" type="xml">
+            <tree string="Casos postventa">
+                <field name="name"/>
+                <field name="fecha"/>
+                <field name="partner_id"/>
+                <field name="asunto"/>
+                <field name="tipo"/>
+                <field name="sale_order_id"/>
+                <field name="product_id" optional="show"/>
+                <field name="prioridad" widget="priority"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="fecha_limite" optional="show"/>
+                <field name="stage_id" widget="badge"/>
+                <field name="satisfaccion" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_dd_reclamo_kanban" model="ir.ui.view">
+        <field name="name">dd.reclamo.kanban</field>
+        <field name="model">dd.reclamo</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id" class="o_kanban_small_column">
+                <field name="stage_id"/>
+                <field name="color"/>
+                <field name="activity_state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click {{kanban_color(record.color.raw_value)}}">
+                            <div class="oe_kanban_content">
+                                <strong><field name="name"/></strong> - <field name="asunto"/>
+                                <div><field name="partner_id"/></div>
+                                <div class="text-muted"><field name="tipo"/></div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="prioridad" widget="priority"/>
+                                        <field name="activity_ids" widget="kanban_activity"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="kanban_state" widget="state_selection"/>
+                                        <field name="user_id" widget="many2one_avatar_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_dd_reclamo_search" model="ir.ui.view">
+        <field name="name">dd.reclamo.search</field>
+        <field name="model">dd.reclamo</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="asunto"/>
+                <field name="partner_id"/>
+                <field name="sale_order_id"/>
+                <field name="product_id"/>
+                <filter string="Mis casos" name="mis_casos" domain="[('user_id', '=', uid)]"/>
+                <filter string="Abiertos" name="abiertos" domain="[('stage_id.es_resuelto', '=', False), ('stage_id.es_cerrado', '=', False)]"/>
+                <filter string="Resueltos" name="resueltos" domain="['|', ('stage_id.es_resuelto', '=', True), ('stage_id.es_cerrado', '=', True)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Etapa" name="group_stage" context="{'group_by': 'stage_id'}"/>
+                    <filter string="Cliente" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Tipo" name="group_tipo" context="{'group_by': 'tipo'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_dd_reclamo_pivot" model="ir.ui.view">
+        <field name="name">dd.reclamo.pivot</field>
+        <field name="model">dd.reclamo</field>
+        <field name="arch" type="xml">
+            <pivot string="Análisis postventa">
+                <field name="tipo" type="row"/>
+                <field name="stage_id" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_dd_reclamo" model="ir.actions.act_window">
+        <field name="name">Casos postventa</field>
+        <field name="res_model">dd.reclamo</field>
+        <field name="view_mode">kanban,tree,form,pivot,activity</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Registre el primer caso de atención postventa</p>
+            <p>Reclamaciones, consultas y devoluciones de los clientes, vinculadas a su pedido, entrega y factura.</p>
+        </field>
+    </record>
+
+    <record id="view_dd_reclamo_etapa_tree" model="ir.ui.view">
+        <field name="name">dd.reclamo.etapa.tree</field>
+        <field name="model">dd.reclamo.etapa</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="fold"/>
+                <field name="es_resuelto"/>
+                <field name="es_cerrado"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_dd_reclamo_etapa" model="ir.actions.act_window">
+        <field name="name">Etapas postventa</field>
+        <field name="res_model">dd.reclamo.etapa</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- Botón de casos postventa en el pedido de venta -->
+    <record id="view_order_form_dd" model="ir.ui.view">
+        <field name="name">sale.order.form.dulces.delicias</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_dd_reclamos" icon="fa-life-ring"
+                        invisible="dd_reclamo_count == 0">
+                    <field string="Postventa" name="dd_reclamo_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

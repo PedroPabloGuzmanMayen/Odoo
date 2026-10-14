@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dd_reclamo_user,dd.reclamo usuario,model_dd_reclamo,base.group_user,1,1,1,0
+access_dd_reclamo_manager,dd.reclamo responsable,model_dd_reclamo,sales_team.group_sale_manager,1,1,1,1
+access_dd_reclamo_etapa_user,dd.reclamo.etapa usuario,model_dd_reclamo_etapa,base.group_user,1,0,0,0
+access_dd_reclamo_etapa_manager,dd.reclamo.etapa responsable,model_dd_reclamo_etapa,sales_team.group_sale_manager,1,1,1,1
+access_dd_reporte_wizard,dd.reporte.wizard,model_dd_reporte_wizard,base.group_user,1,1,1,1
+access_dd_simulacion_wizard,dd.simulacion.wizard,model_dd_simulacion_wizard,base.group_system,1,1,1,1

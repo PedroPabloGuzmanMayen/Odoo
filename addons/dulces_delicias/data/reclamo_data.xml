@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="etapa_nuevo" model="dd.reclamo.etapa">
+        <field name="name">Nuevo</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="etapa_analisis" model="dd.reclamo.etapa">
+        <field name="name">En análisis</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="etapa_en_resolucion" model="dd.reclamo.etapa">
+        <field name="name">En resolución</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="etapa_resuelto" model="dd.reclamo.etapa">
+        <field name="name">Resuelto</field>
+        <field name="sequence">4</field>
+        <field name="es_resuelto" eval="True"/>
+    </record>
+    <record id="etapa_cerrado" model="dd.reclamo.etapa">
+        <field name="name">Cerrado</field>
+        <field name="sequence">5</field>
+        <field name="fold" eval="True"/>
+        <field name="es_cerrado" eval="True"/>
+    </record>
+
+    <!-- Tipo de actividad para el seguimiento de casos -->
+    <record id="activity_seguimiento_postventa" model="mail.activity.type">
+        <field name="name">Seguimiento postventa</field>
+        <field name="icon">fa-life-ring</field>
+        <field name="delay_count">2</field>
+        <field name="res_model">dd.reclamo</field>
+    </record>
+</odoo>

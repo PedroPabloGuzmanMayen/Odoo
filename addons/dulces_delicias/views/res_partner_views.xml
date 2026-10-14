@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_dd" model="ir.ui.view">
+        <field name="name">res.partner.form.dulces.delicias</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_dd_reclamos" icon="fa-life-ring"
+                        invisible="dd_reclamo_count == 0">
+                    <field string="Casos postventa" name="dd_reclamo_count" widget="statinfo"/>
+                </button>
+            </div>
+            <xpath expr="//notebook" position="inside">
+                <page string="Perfil Dulces Delicias" name="dd_perfil">
+                    <group>
+                        <group string="Clasificación">
+                            <field name="dd_tipo_cliente"/>
+                            <field name="dd_frecuencia_compra"/>
+                            <field name="dd_total_vendido"/>
+                        </group>
+                        <group string="Preferencias de productos">
+                            <field name="dd_productos_preferidos_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <field name="dd_preferencias" placeholder="Preferencias, horarios de recepción, requisitos especiales..."/>
+                </page>
+                <page string="Historial de compras" name="dd_historial">
+                    <field name="sale_order_ids" readonly="1" context="{'active_test': False}">
+                        <tree decoration-muted="state == 'cancel'">
+                            <field name="name"/>
+                            <field name="date_order"/>
+                            <field name="commitment_date" optional="show"/>
+                            <field name="payment_term_id" optional="show"/>
+                            <field name="amount_total" sum="Total"/>
+                            <field name="invoice_status" widget="badge"/>
+                            <field name="delivery_status" widget="badge" optional="show"/>
+                            <field name="state" widget="badge"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_tree_dd" model="ir.ui.view">
+        <field name="name">res.partner.tree.dulces.delicias</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="email" position="after">
+                <field name="dd_tipo_cliente" optional="show"/>
+                <field name="city" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_search_dd" model="ir.ui.view">
+        <field name="name">res.partner.search.dulces.delicias</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="type_company" position="after">
+                <separator/>
+                <filter string="Clientes" name="dd_clientes" domain="[('customer_rank', '>', 0)]"/>
+                <filter string="Proveedores" name="dd_proveedores" domain="[('supplier_rank', '>', 0)]"/>
+            </filter>
+            <xpath expr="//group" position="inside">
+                <filter string="Tipo de cliente" name="group_dd_tipo" context="{'group_by': 'dd_tipo_cliente'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_dd_clientes" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('customer_rank', '>', 0), ('is_company', '=', True)]</field>
+        <field name="context">{'default_customer_rank': 1, 'default_is_company': True}</field>
+    </record>
+    <record id="action_dd_proveedores" model="ir.actions.act_window">
+        <field name="name">Proveedores</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('supplier_rank', '>', 0), ('is_company', '=', True)]</field>
+        <field name="context">{'default_supplier_rank': 1, 'default_is_company': True}</field>
+    </record>
+</odoo>

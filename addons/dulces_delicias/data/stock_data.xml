@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Almacenes (ubicaciones internas) de la planta -->
+    <record id="location_materias_primas" model="stock.location">
+        <field name="name">Materias Primas</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="usage">internal</field>
+        <field name="barcode">DD-MP</field>
+    </record>
+    <record id="location_productos_terminados" model="stock.location">
+        <field name="name">Productos Terminados</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="usage">internal</field>
+        <field name="barcode">DD-PT</field>
+    </record>
+    <record id="location_no_conforme" model="stock.location">
+        <field name="name">Producto No Conforme (devoluciones)</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="usage">internal</field>
+        <field name="return_location" eval="True"/>
+        <field name="barcode">DD-NC</field>
+    </record>
+</odoo>

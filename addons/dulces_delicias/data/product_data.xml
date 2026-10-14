@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ===================== CATEGORÍAS ===================== -->
+    <record id="categ_dulces_delicias" model="product.category">
+        <field name="name">Dulces Delicias</field>
+    </record>
+    <record id="categ_materias_primas" model="product.category">
+        <field name="name">Materias Primas</field>
+        <field name="parent_id" ref="categ_dulces_delicias"/>
+    </record>
+    <record id="categ_productos_terminados" model="product.category">
+        <field name="name">Productos Terminados</field>
+        <field name="parent_id" ref="categ_dulces_delicias"/>
+    </record>
+    <record id="categ_servicios" model="product.category">
+        <field name="name">Servicios y gastos</field>
+        <field name="parent_id" ref="categ_dulces_delicias"/>
+    </record>
+    <record id="categ_logistica" model="product.category">
+        <field name="name">Logística</field>
+        <field name="parent_id" ref="categ_dulces_delicias"/>
+    </record>
+
+    <!-- ===================== MATERIAS PRIMAS ===================== -->
+    <record id="mp_azucar" model="product.product">
+        <field name="name">Azúcar refinada</field>
+        <field name="default_code">MP-AZU</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">6.00</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+        <field name="description_purchase">Azúcar refinada en sacos de 50 kg.</field>
+    </record>
+    <record id="mp_colorante" model="product.product">
+        <field name="name">Colorante alimentario</field>
+        <field name="default_code">MP-COL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_litre"/>
+        <field name="uom_po_id" ref="uom.product_uom_litre"/>
+        <field name="standard_price">120.00</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <record id="mp_saborizante" model="product.product">
+        <field name="name">Saborizante de frutas</field>
+        <field name="default_code">MP-SAB</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_litre"/>
+        <field name="uom_po_id" ref="uom.product_uom_litre"/>
+        <field name="standard_price">150.00</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <record id="mp_cacao" model="product.product">
+        <field name="name">Cacao en polvo</field>
+        <field name="default_code">MP-CAC</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">45.00</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <record id="mp_leche" model="product.product">
+        <field name="name">Leche entera</field>
+        <field name="default_code">MP-LEC</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_litre"/>
+        <field name="uom_po_id" ref="uom.product_uom_litre"/>
+        <field name="standard_price">10.00</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <record id="mp_harina" model="product.product">
+        <field name="name">Harina de trigo</field>
+        <field name="default_code">MP-HAR</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">7.00</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <record id="mp_mantequilla" model="product.product">
+        <field name="name">Mantequilla sin sal</field>
+        <field name="default_code">MP-MAN</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">40.00</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <record id="mp_huevos" model="product.product">
+        <field name="name">Huevos frescos</field>
+        <field name="default_code">MP-HUE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="standard_price">1.25</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+
+    <!-- ===================== PRODUCTOS TERMINADOS ===================== -->
+    <record id="pt_caramelos" model="product.product">
+        <field name="name">Caramelos surtidos de frutas (bolsa 500 g)</field>
+        <field name="default_code">PT-CAR</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_productos_terminados"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="list_price">25.00</field>
+        <field name="standard_price">6.00</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="tracking">lot</field>
+        <field name="weight">0.5</field>
+        <field name="sale_delay">2</field>
+        <field name="route_ids" eval="[(6, 0, [ref('mrp.route_warehouse0_manufacture')])]"/>
+        <field name="description_sale">Bolsa de 500 g de caramelos artesanales sabores fresa, limón, naranja y uva.</field>
+    </record>
+    <record id="pt_chocolates" model="product.product">
+        <field name="name">Chocolates de leche (caja 12 unidades)</field>
+        <field name="default_code">PT-CHO</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_productos_terminados"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="list_price">45.00</field>
+        <field name="standard_price">10.00</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="tracking">lot</field>
+        <field name="weight">0.3</field>
+        <field name="sale_delay">2</field>
+        <field name="route_ids" eval="[(6, 0, [ref('mrp.route_warehouse0_manufacture')])]"/>
+        <field name="description_sale">Caja de 12 bombones artesanales de chocolate con leche.</field>
+    </record>
+    <record id="pt_galletas" model="product.product">
+        <field name="name">Galletas de mantequilla (paquete 24 unidades)</field>
+        <field name="default_code">PT-GAL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_productos_terminados"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="list_price">35.00</field>
+        <field name="standard_price">10.00</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="tracking">lot</field>
+        <field name="weight">0.4</field>
+        <field name="sale_delay">2</field>
+        <field name="route_ids" eval="[(6, 0, [ref('mrp.route_warehouse0_manufacture')])]"/>
+        <field name="description_sale">Paquete de 24 galletas artesanales de mantequilla horneadas.</field>
+    </record>
+
+    <!-- ===================== SERVICIOS / GASTOS ===================== -->
+    <record id="srv_energia" model="product.product">
+        <field name="name">Servicio de energía eléctrica</field>
+        <field name="default_code">GS-ENE</field>
+        <field name="detailed_type">service</field>
+        <field name="categ_id" ref="categ_servicios"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="standard_price">1500.00</field>
+    </record>
+    <record id="srv_alquiler" model="product.product">
+        <field name="name">Alquiler de planta de producción</field>
+        <field name="default_code">GS-ALQ</field>
+        <field name="detailed_type">service</field>
+        <field name="categ_id" ref="categ_servicios"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="standard_price">5000.00</field>
+    </record>
+
+    <!-- ===================== LISTAS DE PRECIOS DE PROVEEDOR ===================== -->
+    <record id="sup_azucar" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_azucar"/>
+        <field name="product_tmpl_id" ref="mp_azucar_product_template"/>
+        <field name="price">6.00</field>
+        <field name="min_qty">50</field>
+        <field name="delay">3</field>
+    </record>
+    <record id="sup_colorante" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_aromas"/>
+        <field name="product_tmpl_id" ref="mp_colorante_product_template"/>
+        <field name="price">120.00</field>
+        <field name="delay">5</field>
+    </record>
+    <record id="sup_saborizante" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_aromas"/>
+        <field name="product_tmpl_id" ref="mp_saborizante_product_template"/>
+        <field name="price">150.00</field>
+        <field name="delay">5</field>
+    </record>
+    <record id="sup_cacao" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_cacao"/>
+        <field name="product_tmpl_id" ref="mp_cacao_product_template"/>
+        <field name="price">45.00</field>
+        <field name="min_qty">10</field>
+        <field name="delay">4</field>
+    </record>
+    <record id="sup_leche" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_lacteos"/>
+        <field name="product_tmpl_id" ref="mp_leche_product_template"/>
+        <field name="price">10.00</field>
+        <field name="delay">1</field>
+    </record>
+    <record id="sup_mantequilla" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_lacteos"/>
+        <field name="product_tmpl_id" ref="mp_mantequilla_product_template"/>
+        <field name="price">40.00</field>
+        <field name="delay">1</field>
+    </record>
+    <record id="sup_harina" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_harina"/>
+        <field name="product_tmpl_id" ref="mp_harina_product_template"/>
+        <field name="price">7.00</field>
+        <field name="min_qty">50</field>
+        <field name="delay">3</field>
+    </record>
+    <record id="sup_huevos" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_huevos"/>
+        <field name="product_tmpl_id" ref="mp_huevos_product_template"/>
+        <field name="price">1.25</field>
+        <field name="min_qty">30</field>
+        <field name="delay">1</field>
+    </record>
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dd_reporte_wizard_form" model="ir.ui.view">
+        <field name="name">dd.reporte.wizard.form</field>
+        <field name="model">dd.reporte.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reportes Dulces Delicias">
+                <group>
+                    <field name="tipo" widget="radio"/>
+                </group>
+                <group invisible="tipo != 'estado_resultados'" string="Período">
+                    <group>
+                        <field name="date_from" required="tipo == 'estado_resultados'"/>
+                        <field name="date_to" required="tipo == 'estado_resultados'"/>
+                    </group>
+                    <group>
+                        <field name="detalle_cuentas"/>
+                        <field name="incluir_borradores"/>
+                    </group>
+                </group>
+                <group invisible="tipo != 'inventario'" string="Filtros de inventario">
+                    <field name="location_id"/>
+                    <field name="categ_id"/>
+                </group>
+                <field name="company_id" invisible="1"/>
+                <footer>
+                    <button name="action_ver" type="object" string="Ver en pantalla" class="btn-primary"/>
+                    <button name="action_imprimir" type="object" string="Descargar PDF" class="btn-secondary"/>
+                    <button special="cancel" string="Cancelar" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dd_reporte_wizard" model="ir.actions.act_window">
+        <field name="name">Reportes Dulces Delicias</field>
+        <field name="res_model">dd.reporte.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="action_dd_estado_resultados" model="ir.actions.act_window">
+        <field name="name">Estado de resultados</field>
+        <field name="res_model">dd.reporte.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_tipo': 'estado_resultados'}</field>
+    </record>
+    <record id="action_dd_estado_inventario" model="ir.actions.act_window">
+        <field name="name">Estado del inventario (PDF)</field>
+        <field name="res_model">dd.reporte.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_tipo': 'inventario'}</field>
+    </record>
+</odoo>

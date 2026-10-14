@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Centros de trabajo: capacidad = unidades procesadas por ciclo -->
+    <record id="wc_cocina" model="mrp.workcenter">
+        <field name="name">Cocina de caramelos</field>
+        <field name="code">WC-CAR</field>
+        <field name="default_capacity">100</field>
+        <field name="time_efficiency">100</field>
+        <field name="time_start">10</field>
+        <field name="time_stop">10</field>
+        <field name="costs_hour">0</field>
+    </record>
+    <record id="wc_chocolate" model="mrp.workcenter">
+        <field name="name">Línea de chocolate</field>
+        <field name="code">WC-CHO</field>
+        <field name="default_capacity">100</field>
+        <field name="time_efficiency">100</field>
+        <field name="time_start">10</field>
+        <field name="time_stop">10</field>
+        <field name="costs_hour">0</field>
+    </record>
+    <record id="wc_mezcla" model="mrp.workcenter">
+        <field name="name">Mezcladora y amasado</field>
+        <field name="code">WC-MEZ</field>
+        <field name="default_capacity">100</field>
+        <field name="time_efficiency">100</field>
+        <field name="time_start">10</field>
+        <field name="time_stop">10</field>
+        <field name="costs_hour">0</field>
+    </record>
+    <record id="wc_horno" model="mrp.workcenter">
+        <field name="name">Horno industrial</field>
+        <field name="code">WC-HOR</field>
+        <field name="default_capacity">100</field>
+        <field name="time_efficiency">100</field>
+        <field name="time_start">10</field>
+        <field name="time_stop">10</field>
+        <field name="costs_hour">0</field>
+    </record>
+    <record id="wc_empaque" model="mrp.workcenter">
+        <field name="name">Línea de empaque</field>
+        <field name="code">WC-EMP</field>
+        <field name="default_capacity">100</field>
+        <field name="time_efficiency">100</field>
+        <field name="time_start">10</field>
+        <field name="time_stop">10</field>
+        <field name="costs_hour">0</field>
+    </record>
+
+    <!-- Lista de materiales: caramelos (lote estándar de 100 unidades) -->
+    <record id="bom_caramelos" model="mrp.bom">
+        <field name="product_tmpl_id" ref="pt_caramelos_product_template"/>
+        <field name="product_qty">100</field>
+        <field name="type">normal</field>
+        <field name="code">LOTE-CAR</field>
+    </record>
+    <record id="bom_caramelos_line_1" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_caramelos"/>
+        <field name="product_id" ref="mp_azucar"/>
+        <field name="product_qty">45</field>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+    </record>
+    <record id="bom_caramelos_line_2" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_caramelos"/>
+        <field name="product_id" ref="mp_colorante"/>
+        <field name="product_qty">0.5</field>
+        <field name="product_uom_id" ref="uom.product_uom_litre"/>
+    </record>
+    <record id="bom_caramelos_line_3" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_caramelos"/>
+        <field name="product_id" ref="mp_saborizante"/>
+        <field name="product_qty">1</field>
+        <field name="product_uom_id" ref="uom.product_uom_litre"/>
+    </record>
+    <record id="bom_caramelos_op_1" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_caramelos"/>
+        <field name="name">Cocción del jarabe de azúcar</field>
+        <field name="workcenter_id" ref="wc_cocina"/>
+        <field name="sequence">10</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">45</field>
+    </record>
+    <record id="bom_caramelos_op_2" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_caramelos"/>
+        <field name="name">Moldeado y enfriado</field>
+        <field name="workcenter_id" ref="wc_cocina"/>
+        <field name="sequence">20</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">30</field>
+    </record>
+    <record id="bom_caramelos_op_3" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_caramelos"/>
+        <field name="name">Empaque en bolsas de 500 g</field>
+        <field name="workcenter_id" ref="wc_empaque"/>
+        <field name="sequence">30</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">20</field>
+    </record>
+
+    <!-- Lista de materiales: chocolates (lote estándar de 100 unidades) -->
+    <record id="bom_chocolates" model="mrp.bom">
+        <field name="product_tmpl_id" ref="pt_chocolates_product_template"/>
+        <field name="product_qty">100</field>
+        <field name="type">normal</field>
+        <field name="code">LOTE-CHO</field>
+    </record>
+    <record id="bom_chocolates_line_1" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_chocolates"/>
+        <field name="product_id" ref="mp_cacao"/>
+        <field name="product_qty">15</field>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+    </record>
+    <record id="bom_chocolates_line_2" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_chocolates"/>
+        <field name="product_id" ref="mp_leche"/>
+        <field name="product_qty">10</field>
+        <field name="product_uom_id" ref="uom.product_uom_litre"/>
+    </record>
+    <record id="bom_chocolates_line_3" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_chocolates"/>
+        <field name="product_id" ref="mp_azucar"/>
+        <field name="product_qty">8</field>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+    </record>
+    <record id="bom_chocolates_op_1" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_chocolates"/>
+        <field name="name">Mezcla y templado del chocolate</field>
+        <field name="workcenter_id" ref="wc_chocolate"/>
+        <field name="sequence">10</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">40</field>
+    </record>
+    <record id="bom_chocolates_op_2" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_chocolates"/>
+        <field name="name">Moldeado de bombones</field>
+        <field name="workcenter_id" ref="wc_chocolate"/>
+        <field name="sequence">20</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">30</field>
+    </record>
+    <record id="bom_chocolates_op_3" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_chocolates"/>
+        <field name="name">Empaque en cajas de 12</field>
+        <field name="workcenter_id" ref="wc_empaque"/>
+        <field name="sequence">30</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">20</field>
+    </record>
+
+    <!-- Lista de materiales: galletas (lote estándar de 100 unidades) -->
+    <record id="bom_galletas" model="mrp.bom">
+        <field name="product_tmpl_id" ref="pt_galletas_product_template"/>
+        <field name="product_qty">100</field>
+        <field name="type">normal</field>
+        <field name="code">LOTE-GAL</field>
+    </record>
+    <record id="bom_galletas_line_1" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_galletas"/>
+        <field name="product_id" ref="mp_harina"/>
+        <field name="product_qty">20</field>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+    </record>
+    <record id="bom_galletas_line_2" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_galletas"/>
+        <field name="product_id" ref="mp_azucar"/>
+        <field name="product_qty">8</field>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+    </record>
+    <record id="bom_galletas_line_3" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_galletas"/>
+        <field name="product_id" ref="mp_mantequilla"/>
+        <field name="product_qty">10</field>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+    </record>
+    <record id="bom_galletas_line_4" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_galletas"/>
+        <field name="product_id" ref="mp_huevos"/>
+        <field name="product_qty">200</field>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+    </record>
+    <record id="bom_galletas_op_1" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_galletas"/>
+        <field name="name">Preparación de la masa</field>
+        <field name="workcenter_id" ref="wc_mezcla"/>
+        <field name="sequence">10</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">30</field>
+    </record>
+    <record id="bom_galletas_op_2" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_galletas"/>
+        <field name="name">Horneado</field>
+        <field name="workcenter_id" ref="wc_horno"/>
+        <field name="sequence">20</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">35</field>
+    </record>
+    <record id="bom_galletas_op_3" model="mrp.routing.workcenter">
+        <field name="bom_id" ref="bom_galletas"/>
+        <field name="name">Empaque en paquetes de 24</field>
+        <field name="workcenter_id" ref="wc_empaque"/>
+        <field name="sequence">30</field>
+        <field name="time_mode">manual</field>
+        <field name="time_cycle_manual">20</field>
+    </record>
+</odoo>

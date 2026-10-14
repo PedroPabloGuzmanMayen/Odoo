@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_inventario">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="d" t-value="datos[doc.id]"/>
+                <t t-set="moneda" t-value="doc.company_id.currency_id"/>
+                <t t-set="estados" t-value="{'bajo': ('Bajo mínimo', 'danger'), 'exceso': ('Sobre máximo', 'warning'), 'ok': ('Normal', 'success'), 'sin_regla': ('Sin regla', 'secondary')}"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center mb-0">Estado del Inventario</h2>
+                        <p class="text-center text-muted">
+                            Ubicación: <t t-esc="doc.location_id.complete_name or 'Todas'"/>
+                            <t t-if="doc.categ_id"> - Categoría: <t t-esc="doc.categ_id.display_name"/></t>
+                            - Generado: <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
+                        </p>
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th><th>Producto</th><th>UdM</th>
+                                    <th class="text-end">Disponible</th>
+                                    <th class="text-end">Por recibir</th>
+                                    <th class="text-end">Por entregar</th>
+                                    <th class="text-end">Mínimo</th>
+                                    <th class="text-end">Máximo</th>
+                                    <th>Estado</th>
+                                    <th class="text-end">Costo unit.</th>
+                                    <th class="text-end">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="d['categorias'].items()" t-as="cat">
+                                    <tr class="table-light"><td colspan="11"><strong t-esc="cat[0]"/></td></tr>
+                                    <tr t-foreach="cat[1]" t-as="l">
+                                        <td t-esc="l['codigo']"/>
+                                        <td t-esc="l['nombre']"/>
+                                        <td t-esc="l['uom']"/>
+                                        <td class="text-end"><t t-esc="'%.2f' % l['disponible']"/></td>
+                                        <td class="text-end"><t t-esc="'%.2f' % l['entrante']"/></td>
+                                        <td class="text-end"><t t-esc="'%.2f' % l['saliente']"/></td>
+                                        <td class="text-end"><t t-esc="'%.2f' % l['minimo']"/></td>
+                                        <td class="text-end"><t t-esc="'%.2f' % l['maximo']"/></td>
+                                        <td><strong t-attf-class="text-#{estados[l['estado']][1]}" t-esc="estados[l['estado']][0]"/></td>
+                                        <td class="text-end"><t t-esc="l['costo']" t-options="{'widget': 'monetary', 'display_currency': moneda}"/></td>
+                                        <td class="text-end"><t t-esc="l['valor']" t-options="{'widget': 'monetary', 'display_currency': moneda}"/></td>
+                                    </tr>
+                                </t>
+                                <tr style="border-top: 2px solid #333;">
+                                    <td colspan="10" class="text-end"><strong>Valor total del inventario</strong></td>
+                                    <td class="text-end"><strong t-esc="d['total_valor']" t-options="{'widget': 'monetary', 'display_currency': moneda}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 class="mt-4">Existencias por ubicación y lote</h4>
+                        <table class="table table-sm">
+                            <thead><tr><th>Ubicación</th><th>Producto</th><th>Lote</th><th class="text-end">Cantidad</th><th>UdM</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="d['ubicaciones']" t-as="u">
+                                    <td t-esc="u['ubicacion']"/>
+                                    <td t-esc="u['producto']"/>
+                                    <td t-esc="u['lote']"/>
+                                    <td class="text-end"><t t-esc="'%.2f' % u['cantidad']"/></td>
+                                    <td t-esc="u['uom']"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
