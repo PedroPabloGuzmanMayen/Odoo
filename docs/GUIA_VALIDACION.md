@@ -29,7 +29,7 @@ Requisito: tres productos, las materias primas de cada uno, sus unidades de medi
 mínimo y máximo.
 
 - [ ] **Inventario > Productos > Productos**: hay 3 productos terminados (código `PT-`) y 8
-  materias primas (código `MP-`).
+  materias primas (código `MP-`). En la vista de tarjetas cada producto muestra su imagen.
 - [ ] Abra **Cacao en polvo**: la unidad de medida es kg. La leche, el colorante y el saborizante
   están en L, y los huevos en unidades.
 - [ ] **Manufactura > Productos > Listas de materiales**: hay 3 recetas.

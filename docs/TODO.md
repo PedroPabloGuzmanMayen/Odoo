@@ -11,7 +11,8 @@ El detalle de cada pendiente está en [Pendientes para la entrega](PENDIENTES_EN
 - [ ] Presentación grupal por Zoom, detallada con cada uno de los numerales del caso
 - [ ] Documento PDF con las diapositivas de la presentación
 
-Fecha de entrega: por confirmar. El profesor dijo el 05/10 que se puede mover.
+Fecha de entrega: hoy, 14/10/2026. Duración: 10 minutos como máximo. La demostración en vivo en
+Odoo es obligatoria; las capturas son solo respaldo.
 
 ## Sistema en Odoo
 
@@ -39,28 +40,27 @@ Fecha de entrega: por confirmar. El profesor dijo el 05/10 que se puede mover.
 - [x] Corrección de la simulación cuando el servidor arranca antes de simular, con commit
   `fc5fb1d` (14/10)
 - [x] [Guía de validación](GUIA_VALIDACION.md) pantalla por pantalla (14/10)
-- [x] Revisión de las grabaciones de clase del 05/10 y del 14/10 (14/10)
-- [ ] Corregir la moneda de las compras: hoy salen en USD y deben salir en GTQ.
-  [Pendiente 1](PENDIENTES_ENTREGA.md#1-corregir-la-moneda-de-las-compras-usd-en-lugar-de-gtq)
-- [ ] Reinstalar y volver a simular con la corrección: `./scripts/reiniciar.sh`,
-  `./scripts/instalar.sh` y simular desde el menú.
-- [ ] Repetir las capturas que muestran USD (como mínimo la 07 y la 08) y revisar las 22.
-  [Pendiente 5](PENDIENTES_ENTREGA.md#5-repetir-las-capturas-afectadas)
-- [ ] Hacer commit de la documentación nueva (`docs/TODO.md`, `docs/GUIA_VALIDACION.md`,
-  `docs/PENDIENTES_ENTREGA.md` y `README.md`).
+- [x] Revisión de lo dicho en clase sobre el caso y sobre TOGAF (14/10)
+- [x] Moneda de las compras corregida: compras y facturas de proveedor en GTQ (14/10)
+- [x] Imágenes en los 11 productos, de Wikimedia Commons con licencia libre (14/10)
+- [x] Reinstalación con la simulación completa sobre la versión corregida (14/10)
+- [x] Recorridos guiados de Odoo desactivados: su puntero morado tapaba campos en la demostración
+  y en las capturas (14/10)
+- [x] Las 22 capturas rehechas sobre la instalación nueva: montos en Q y productos con imagen (14/10)
 
 ## Presentación
 
-- [ ] Confirmar con el profesor la fecha, la duración, el formato, si quiere demostración en vivo
-  y los criterios de evaluación.
-- [ ] Repartir los numerales entre los integrantes.
-- [ ] Cada integrante practica su numeral en Odoo con la [Guía de validación](GUIA_VALIDACION.md).
+- [ ] Repartir los bloques de la presentación entre los integrantes.
+  [Pendiente 1](PENDIENTES_ENTREGA.md#1-presentación-de-10-minutos-con-demostración-en-vivo)
+- [ ] Cada integrante practica su bloque en Odoo con la [Guía de validación](GUIA_VALIDACION.md).
+- [ ] Dejar las pantallas de la demostración abiertas en pestañas, en el orden del recorrido.
 - [ ] Diapositiva de TOGAF: relación de sus cuatro dominios de arquitectura con el caso.
-  [Pendiente 3](PENDIENTES_ENTREGA.md#3-integrar-togaf-en-la-presentación)
-- [ ] Armar las diapositivas: introducción, TOGAF, numerales 1 a 9, integración entre módulos,
-  conclusiones y bibliografía. Base: sección 11 de la [Guía técnica](GUIA_TECNICA.md).
-- [ ] Preparar respuestas a preguntas probables. [Pendiente 6](PENDIENTES_ENTREGA.md#6-preparar-respuestas-a-preguntas-probables)
-- [ ] Ensayo general con control de tiempo, demostración en vivo y capturas de respaldo.
+  [Pendiente 2](PENDIENTES_ENTREGA.md#2-integrar-togaf)
+- [ ] Armar pocas diapositivas de apoyo: portada, TOGAF, una por bloque, conclusiones y
+  bibliografía. Base: sección 11 de la [Guía técnica](GUIA_TECNICA.md).
+- [ ] Preparar respuestas a preguntas probables.
+  [Pendiente 4](PENDIENTES_ENTREGA.md#4-preparar-respuestas-a-preguntas-probables)
+- [ ] Ensayo con cronómetro: 10 minutos como máximo, con demostración en vivo.
 - [ ] Exportar las diapositivas a PDF y revisar que las capturas se lean bien.
 
 ## Entrega
@@ -70,13 +70,10 @@ Fecha de entrega: por confirmar. El profesor dijo el 05/10 que se puede mover.
 
 ## Orden sugerido
 
-1. Confirmar con el profesor la fecha y el formato, antes de invertir tiempo.
-2. Corregir la moneda, reinstalar, repetir las capturas y hacer commit, para que el sistema quede
-   definitivo.
-3. Repartir numerales y practicar, en paralelo con la diapositiva de TOGAF y el armado de la
-   presentación.
-4. Preparar preguntas y ensayar.
-5. Exportar el PDF, presentar y entregar.
+1. Repartir los bloques y practicar, en paralelo con la diapositiva de TOGAF y las diapositivas de
+   apoyo.
+2. Preparar preguntas y ensayar con cronómetro.
+3. Exportar el PDF, presentar y entregar.
 
 ## Cómo actualizar esta lista
 
