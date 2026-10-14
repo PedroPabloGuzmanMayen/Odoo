@@ -187,8 +187,20 @@ class DdSimulacion(models.AbstractModel):
         quants.action_apply_inventory()
 
     def _paso_compras(self):
+        self._compras_bajo_stock()
+        self._gastos_operacion()
+
+    def _compras_bajo_stock(self):
         mp = self._ref("location_materias_primas")
         orderpoints = self.env["stock.warehouse.orderpoint"].search([("location_id", "=", mp.id)])
+        # Si el servidor arrancó antes de la simulación, el planificador ya creó solicitudes
+        # en borrador con el inventario en cero. Odoo las cuenta como "en camino" y la cantidad
+        # a pedir queda en 0, así que se eliminan para recalcular con el inventario real.
+        provisionales = self.env["purchase.order.line"].search([
+            ("orderpoint_id", "in", orderpoints.ids), ("order_id.state", "=", "draft")]).order_id
+        provisionales = provisionales.filtered(lambda po: all(po.order_line.mapped("orderpoint_id")))
+        provisionales.button_cancel()
+        provisionales.unlink()
         orderpoints._compute_qty_to_order()
         bajos = orderpoints.filtered(lambda o: o.qty_to_order > 0)
         if not bajos:
@@ -210,7 +222,9 @@ class DdSimulacion(models.AbstractModel):
                 bill.action_post()
                 self._pagar(bill, self._journal("BNK1"), memo=po.name)
 
-        # Gastos de operación del período (servicios)
+    def _gastos_operacion(self):
+        """Gastos de operación del período (servicios)."""
+        hoy = fields.Date.context_today(self)
         gastos = [
             ("prov_energia", "srv_energia", 1680.00, "EC-2026-%s" % hoy.strftime("%m")),
             ("prov_inmobiliaria", "srv_alquiler", 5600.00, "ALQ-%s" % hoy.strftime("%Y%m")),
