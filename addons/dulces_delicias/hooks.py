@@ -8,6 +8,7 @@ def post_init_hook(env):
     company = env.ref("base.main_company")
     _configurar_compania(env, company)
     _cargar_plan_contable(env, company)
+    _moneda_precios_proveedor(env, company)
     _configurar_ajustes(env, company)
     _configurar_contabilidad(env, company)
     _configurar_almacen(env, company)
@@ -22,6 +23,16 @@ def _cargar_plan_contable(env, company):
     env["account.chart.template"].try_loading("gt", company, install_demo=False)
     if hasattr(env.registry, "_auto_install_template"):
         del env.registry._auto_install_template
+
+
+def _moneda_precios_proveedor(env, company):
+    """Los precios de proveedor se crean al cargar los datos XML, cuando la compañía aún tiene
+    la moneda por defecto (USD). El plan contable la cambia a GTQ, así que se actualizan para
+    que las compras y las facturas de proveedor salgan en quetzales."""
+    env["product.supplierinfo"].search([
+        ("company_id", "in", (company.id, False)),
+        ("currency_id", "!=", company.currency_id.id),
+    ]).write({"currency_id": company.currency_id.id})
 
 
 def _configurar_compania(env, company):

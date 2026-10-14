@@ -23,6 +23,7 @@
 
     <!-- ===================== MATERIAS PRIMAS ===================== -->
     <record id="mp_azucar" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_azucar.jpg"/>
         <field name="name">Azúcar refinada</field>
         <field name="default_code">MP-AZU</field>
         <field name="detailed_type">product</field>
@@ -36,6 +37,7 @@
         <field name="description_purchase">Azúcar refinada en sacos de 50 kg.</field>
     </record>
     <record id="mp_colorante" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_colorante.jpg"/>
         <field name="name">Colorante alimentario</field>
         <field name="default_code">MP-COL</field>
         <field name="detailed_type">product</field>
@@ -47,6 +49,7 @@
         <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
     </record>
     <record id="mp_saborizante" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_saborizante.jpg"/>
         <field name="name">Saborizante de frutas</field>
         <field name="default_code">MP-SAB</field>
         <field name="detailed_type">product</field>
@@ -58,6 +61,7 @@
         <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
     </record>
     <record id="mp_cacao" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_cacao.jpg"/>
         <field name="name">Cacao en polvo</field>
         <field name="default_code">MP-CAC</field>
         <field name="detailed_type">product</field>
@@ -69,6 +73,7 @@
         <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
     </record>
     <record id="mp_leche" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_leche.jpg"/>
         <field name="name">Leche entera</field>
         <field name="default_code">MP-LEC</field>
         <field name="detailed_type">product</field>
@@ -80,6 +85,7 @@
         <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
     </record>
     <record id="mp_harina" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_harina.jpg"/>
         <field name="name">Harina de trigo</field>
         <field name="default_code">MP-HAR</field>
         <field name="detailed_type">product</field>
@@ -91,6 +97,7 @@
         <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
     </record>
     <record id="mp_mantequilla" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_mantequilla.jpg"/>
         <field name="name">Mantequilla sin sal</field>
         <field name="default_code">MP-MAN</field>
         <field name="detailed_type">product</field>
@@ -102,6 +109,7 @@
         <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
     </record>
     <record id="mp_huevos" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_huevos.jpg"/>
         <field name="name">Huevos frescos</field>
         <field name="default_code">MP-HUE</field>
         <field name="detailed_type">product</field>
@@ -115,6 +123,7 @@
 
     <!-- ===================== PRODUCTOS TERMINADOS ===================== -->
     <record id="pt_caramelos" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/pt_caramelos.jpg"/>
         <field name="name">Caramelos surtidos de frutas (bolsa 500 g)</field>
         <field name="default_code">PT-CAR</field>
         <field name="detailed_type">product</field>
@@ -132,6 +141,7 @@
         <field name="description_sale">Bolsa de 500 g de caramelos artesanales sabores fresa, limón, naranja y uva.</field>
     </record>
     <record id="pt_chocolates" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/pt_chocolates.jpg"/>
         <field name="name">Chocolates de leche (caja 12 unidades)</field>
         <field name="default_code">PT-CHO</field>
         <field name="detailed_type">product</field>
@@ -149,6 +159,7 @@
         <field name="description_sale">Caja de 12 bombones artesanales de chocolate con leche.</field>
     </record>
     <record id="pt_galletas" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/pt_galletas.jpg"/>
         <field name="name">Galletas de mantequilla (paquete 24 unidades)</field>
         <field name="default_code">PT-GAL</field>
         <field name="detailed_type">product</field>
