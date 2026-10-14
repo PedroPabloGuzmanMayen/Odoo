@@ -232,14 +232,17 @@ def _configurar_almacen(env, company):
 
     # Reglas de reabastecimiento (stock mínimo / máximo) de las materias primas
     niveles = {
-        "dulces_delicias.mp_azucar": (100, 500),
-        "dulces_delicias.mp_colorante": (2, 10),
-        "dulces_delicias.mp_saborizante": (3, 15),
-        "dulces_delicias.mp_cacao": (30, 150),
-        "dulces_delicias.mp_leche": (30, 150),
-        "dulces_delicias.mp_harina": (50, 250),
-        "dulces_delicias.mp_mantequilla": (20, 100),
-        "dulces_delicias.mp_huevos": (200, 1000),
+        "dulces_delicias.mp_azucar": (100, 400),
+        "dulces_delicias.mp_colorante": (1, 5),
+        "dulces_delicias.mp_saborizante": (2, 8),
+        "dulces_delicias.mp_cacao": (10, 40),
+        "dulces_delicias.mp_leche": (8, 30),
+        "dulces_delicias.mp_harina": (25, 100),
+        "dulces_delicias.mp_mantequilla": (10, 40),
+        "dulces_delicias.mp_huevos": (60, 360),
+        "dulces_delicias.mp_bolsa_caramelos": (100, 1000),
+        "dulces_delicias.mp_caja_bombones": (50, 500),
+        "dulces_delicias.mp_bolsa_galletas": (100, 1000),
     }
     Orderpoint = env["stock.warehouse.orderpoint"]
     buy_route = env.ref("purchase_stock.route_warehouse0_buy")

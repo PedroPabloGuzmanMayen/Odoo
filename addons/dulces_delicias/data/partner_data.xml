@@ -198,6 +198,19 @@
         <field name="vat">6667778-9</field>
         <field name="property_supplier_payment_term_id" ref="account.account_payment_term_30days"/>
     </record>
+    <record id="prov_empaques" model="res.partner">
+        <field name="name">Empaques y Etiquetas de Centroamérica, S.A.</field>
+        <field name="is_company" eval="True"/>
+        <field name="supplier_rank">1</field>
+        <field name="category_id" eval="[(6, 0, [ref('tag_proveedor_mp')])]"/>
+        <field name="city">Villa Nueva</field>
+        <field name="state_id" ref="base.state_gt_gua"/>
+        <field name="country_id" ref="base.gt"/>
+        <field name="phone">+502 6634 2200</field>
+        <field name="email">ventas@empaquescentroamerica.com.gt</field>
+        <field name="vat">9990001-2</field>
+        <field name="property_supplier_payment_term_id" ref="account.account_payment_term_30days"/>
+    </record>
     <record id="prov_energia" model="res.partner">
         <field name="name">Energía Central, S.A.</field>
         <field name="is_company" eval="True"/>

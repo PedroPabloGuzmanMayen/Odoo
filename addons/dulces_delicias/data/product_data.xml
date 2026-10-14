@@ -74,14 +74,15 @@
     </record>
     <record id="mp_leche" model="product.product">
         <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_leche.jpg"/>
-        <field name="name">Leche entera</field>
+        <field name="name">Leche en polvo entera</field>
         <field name="default_code">MP-LEC</field>
         <field name="detailed_type">product</field>
         <field name="categ_id" ref="categ_materias_primas"/>
-        <field name="uom_id" ref="uom.product_uom_litre"/>
-        <field name="uom_po_id" ref="uom.product_uom_litre"/>
-        <field name="standard_price">10.00</field>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">40.00</field>
         <field name="sale_ok" eval="False"/>
+        <field name="description_purchase">Leche entera en polvo en sacos de 25 kg, apta para chocolatería.</field>
         <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
     </record>
     <record id="mp_harina" model="product.product">
@@ -118,6 +119,46 @@
         <field name="uom_po_id" ref="uom.product_uom_unit"/>
         <field name="standard_price">1.25</field>
         <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <!-- Empaques: también son materia prima de cada receta -->
+    <record id="mp_bolsa_caramelos" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_bolsa_caramelos.jpg"/>
+        <field name="name">Bolsa de celofán impresa 500 g</field>
+        <field name="default_code">MP-BCA</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="standard_price">0.90</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="description_purchase">Bolsa de celofán con impresión de la marca, cierre plisado, para 500 g de caramelos.</field>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <record id="mp_caja_bombones" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_caja_bombones.jpg"/>
+        <field name="name">Caja de cartón para 12 bombones</field>
+        <field name="default_code">MP-CJB</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="standard_price">3.50</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="description_purchase">Caja de cartón plegadiza con separador interno para 12 bombones.</field>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+    <record id="mp_bolsa_galletas" model="product.product">
+        <field name="image_1920" type="base64" file="dulces_delicias/static/img/mp_bolsa_galletas.jpg"/>
+        <field name="name">Bolsa kraft con ventana para 24 galletas</field>
+        <field name="default_code">MP-BGA</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="categ_materias_primas"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="standard_price">1.20</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="description_purchase">Bolsa de papel kraft con ventana transparente y fondo plano.</field>
         <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
     </record>
 
@@ -227,7 +268,7 @@
     <record id="sup_leche" model="product.supplierinfo">
         <field name="partner_id" ref="prov_lacteos"/>
         <field name="product_tmpl_id" ref="mp_leche_product_template"/>
-        <field name="price">10.00</field>
+        <field name="price">40.00</field>
         <field name="delay">1</field>
     </record>
     <record id="sup_mantequilla" model="product.supplierinfo">
@@ -249,5 +290,26 @@
         <field name="price">1.25</field>
         <field name="min_qty">30</field>
         <field name="delay">1</field>
+    </record>
+    <record id="sup_bolsa_caramelos" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_empaques"/>
+        <field name="product_tmpl_id" ref="mp_bolsa_caramelos_product_template"/>
+        <field name="price">0.90</field>
+        <field name="min_qty">100</field>
+        <field name="delay">5</field>
+    </record>
+    <record id="sup_caja_bombones" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_empaques"/>
+        <field name="product_tmpl_id" ref="mp_caja_bombones_product_template"/>
+        <field name="price">3.50</field>
+        <field name="min_qty">100</field>
+        <field name="delay">5</field>
+    </record>
+    <record id="sup_bolsa_galletas" model="product.supplierinfo">
+        <field name="partner_id" ref="prov_empaques"/>
+        <field name="product_tmpl_id" ref="mp_bolsa_galletas_product_template"/>
+        <field name="price">1.20</field>
+        <field name="min_qty">100</field>
+        <field name="delay">5</field>
     </record>
 </odoo>
