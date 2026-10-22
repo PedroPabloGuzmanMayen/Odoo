@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Layout: barra lateral fija + escenas tipo dashboard (estilo admin-ti, tema "dark data dashboard").
+   Los colores se guardan como componentes HSL para usarlos con opacidad en Tailwind. */
+:root {
+  --background: 220 15% 96%;
+  --foreground: 220 30% 12%;
+  --card: 0 0% 100%;
+  --primary: 220 90% 52%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 15% 90%;
+  --muted: 220 15% 92%;
+  --muted-foreground: 220 10% 38%;
+  --accent: 36 92% 40%;
+  --accent-foreground: 220 30% 12%;
+  --border: 220 15% 85%;
+  --good: 158 64% 32%;
+  --warn: 35 92% 40%;
+  --bad: 0 72% 48%;
+  --chart-2: 40 95% 46%;
+  --chart-3: 173 58% 36%;
+  --chart-4: 262 52% 55%;
+  --chart-5: 220 10% 55%;
+  --radius: 0.5rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: 220 30% 7%;
+    --foreground: 220 15% 92%;
+    --card: 220 30% 10%;
+    --primary: 220 90% 62%;
+    --primary-foreground: 220 30% 7%;
+    --secondary: 220 25% 15%;
+    --muted: 220 25% 15%;
+    --muted-foreground: 220 10% 65%;
+    --accent: 45 95% 55%;
+    --accent-foreground: 220 30% 7%;
+    --border: 220 25% 18%;
+    --good: 158 60% 50%;
+    --warn: 40 95% 58%;
+    --bad: 0 80% 64%;
+    --chart-2: 45 95% 55%;
+    --chart-3: 173 58% 48%;
+    --chart-4: 262 70% 72%;
+    --chart-5: 220 10% 62%;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --background: 220 30% 7%;
+  --foreground: 220 15% 92%;
+  --card: 220 30% 10%;
+  --primary: 220 90% 62%;
+  --primary-foreground: 220 30% 7%;
+  --secondary: 220 25% 15%;
+  --muted: 220 25% 15%;
+  --muted-foreground: 220 10% 65%;
+  --accent: 45 95% 55%;
+  --accent-foreground: 220 30% 7%;
+  --border: 220 25% 18%;
+  --good: 158 60% 50%;
+  --warn: 40 95% 58%;
+  --bad: 0 80% 64%;
+  --chart-2: 45 95% 55%;
+  --chart-3: 173 58% 48%;
+  --chart-4: 262 70% 72%;
+  --chart-5: 220 10% 62%;
+  color-scheme: dark;
+}
+
+@layer base {
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: Geist, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { text-wrap: balance; }
+  :focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 2px; border-radius: 4px; }
+}
+
+@layer components {
+  .eyebrow { @apply text-[10px] uppercase tracking-[0.12em] font-medium text-muted-foreground; }
+  .card { @apply relative overflow-hidden rounded-lg border border-border bg-card; }
+  .topline { @apply pointer-events-none absolute inset-x-0 top-0 h-px; }
+  .gutter {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .num { font-variant-numeric: tabular-nums; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+.scene-enter { animation: scene-in 260ms ease-out both; }
+@keyframes scene-in { from { opacity: .4; transform: translateY(4px); } to { opacity: 1; transform: none; } }
